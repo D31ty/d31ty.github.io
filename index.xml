@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lets Learn Together</title>
+    <link>https://d31ty.github.io/</link>
+    <description>Recent content on Lets Learn Together</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://d31ty.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup AD in Google</title>
+      <link>https://d31ty.github.io/posts/sample_post/</link>
+      <pubDate>Wed, 04 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/posts/sample_post/</guid>
+      <description>How to Setup Google Ad Manager, Keep AdSense, and Earn More Revenue in Five Steps Intowow Intowow · Follow
+5 min read · Jun 13, 2019 7
+For publishers who got started with monetization by utilizing Google AdSense as their self-serve advertising platform, the time often comes when site growth and/or direct advertising opportunities prompt a desire for more features, greater flexibility and control, or just more revenue. When any of these feelings start cropping up, it’s time to consider upgrading to Google Ad Manager.</description>
+    </item>
+    
+  </channel>
+</rss>
