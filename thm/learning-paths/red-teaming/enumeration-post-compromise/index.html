@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>TryHackMe - Enumeration Post Compromise | Lets Learn Together</title>
+<meta name="keywords" content="THM">
+<meta name="description" content="Linux Enumeration OS Version Details
+ls /etc/*-release hostname Users and groups
+cat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info
+ls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages
+dpkg -l Current user info
+who whoami last id Network Details
+ip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format.">
+<meta name="author" content="d31ty">
+<link rel="canonical" href="https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0648e40516ba181e370a81d24ab5a4b0683e67184fe1e7888524d0b7332ed31e.css" integrity="sha256-BkjkBRa6GB43CoHSSrWksGg&#43;ZxhP4eeIhSTQtzMu0x4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://d31ty.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://d31ty.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://d31ty.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://d31ty.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://d31ty.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="TryHackMe - Enumeration Post Compromise" />
+<meta property="og:description" content="Linux Enumeration OS Version Details
+ls /etc/*-release hostname Users and groups
+cat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info
+ls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages
+dpkg -l Current user info
+who whoami last id Network Details
+ip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/" /><meta property="article:section" content="THM" />
+<meta property="article:published_time" content="2023-10-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-10-15T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TryHackMe - Enumeration Post Compromise"/>
+<meta name="twitter:description" content="Linux Enumeration OS Version Details
+ls /etc/*-release hostname Users and groups
+cat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info
+ls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages
+dpkg -l Current user info
+who whoami last id Network Details
+ip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Try Hack Me",
+      "item": "https://d31ty.github.io/thm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "TryHackMe - Enumeration Post Compromise",
+      "item": "https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TryHackMe - Enumeration Post Compromise",
+  "name": "TryHackMe - Enumeration Post Compromise",
+  "description": "Linux Enumeration OS Version Details\nls /etc/*-release hostname Users and groups\ncat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info\nls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages\ndpkg -l Current user info\nwho whoami last id Network Details\nip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format.",
+  "keywords": [
+    "THM"
+  ],
+  "articleBody": "Linux Enumeration OS Version Details\nls /etc/*-release hostname Users and groups\ncat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info\nls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages\ndpkg -l Current user info\nwho whoami last id Network Details\nip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format. Running Services\nps axf Windows Enumeration Systeminfo\nsysteminfo Installed Updates\nwmic qfe get Caption,Description Windows Services\nnet start Users\nwhoami /priv whoami /groups net user net localgroup net localgroup administrators net accounts net accounts /domain Networking\nipconfig /all netstat -abno arp -a DNS\ndig -t AXFR DOMAIN_NAME @DNS_SERVER SMB\nnet share Other Tools List\nSysinternals Suite The Sysinternals Suite is a group of command-line and GUI utilities and tools that provides information about various aspects related to the Windows system. To give you an idea, we listed a few examples in the table below.\nUtility Name Description Process Explorer Shows the processes along with the open files and registry keys Process Monitor Monitor the file system, processes, and Registry PsList Provides information about processes PsLoggedOn Shows the logged-in users Check Sysinternals Utilities Index for a complete list of the utilities. If you want to learn more and experiment with these different utilities, we suggest the Sysinternals room.\nProcess Hacker Another efficient and reliable MS Windows GUI tool that lets you gather information about running processes is Process Hacker. Process Hacker gives you detailed information regarding running processes and related active network connections; moreover, it gives you deep insight into system resource utilization from CPU and memory to disk and network.\nGhostPack Seatbelt Seatbelt, part of the GhostPack collection, is a tool written in C#. It is not officially released in binary form; therefore, you are expected to compile it yourself using MS Visual Studio.\nSummary Commands and Cheatsheet Linux Command Description hostname shows the system’s hostname who shows who is logged in whoami shows the effective username w shows who is logged in and what they are doing last shows a listing of the last logged-in users ip address show shows the network interfaces and addresses arp shows the ARP cache netstat prints network connections ps shows a snapshot of the current processes Windows Command Description systeminfo shows OS configuration information, including service pack levels whoami shows the user name and group information along with the respective security identifiers netstat shows protocol statistics and current TCP/IP network connections net user shows the user accounts on the computer net localgroup shows the local groups on the computer arp shows the IP-to-Physical address translation tables ",
+  "wordCount" : "445",
+  "inLanguage": "en",
+  "datePublished": "2023-10-15T00:00:00Z",
+  "dateModified": "2023-10-15T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "d31ty"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lets Learn Together",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://d31ty.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://d31ty.github.io/" accesskey="h" title="Lets Learn Together (Alt + H)">Lets Learn Together</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://d31ty.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/htb/" title="Hack The Box">
+                    <span>HTB</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/portswigger/" title="PortSwigger">
+                    <span>PortSwigger</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/thm/" title="Try Hack Me">
+                    <span>THM</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      TryHackMe - Enumeration Post Compromise
+    </h1>
+    <div class="post-meta"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;d31ty
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="linux-enumeration">Linux Enumeration<a hidden class="anchor" aria-hidden="true" href="#linux-enumeration">#</a></h2>
+<p><strong>OS Version Details</strong></p>
+<pre tabindex="0"><code>ls /etc/*-release
+</code></pre><pre tabindex="0"><code>hostname
+</code></pre><p><strong>Users and groups</strong></p>
+<pre tabindex="0"><code>cat /etc/passwd
+cat /etc/group
+cat /etc/shadow
+</code></pre><p><strong>Sensitive Info</strong></p>
+<pre tabindex="0"><code>ls -lh /var/mail/
+</code></pre><pre tabindex="0"><code>ls -lh /usr/bin/
+ls -lh /sbin/
+</code></pre><p><strong>Installed Packages</strong></p>
+<pre tabindex="0"><code>dpkg -l
+</code></pre><p><strong>Current user info</strong></p>
+<pre tabindex="0"><code>who
+whoami
+last
+id
+</code></pre><p><strong>Network Details</strong></p>
+<pre tabindex="0"><code>ip a s
+cat /etc/resolv.conf
+sudo netstat -plt
+</code></pre><p><code>netstat -atupn</code> will show <em>All TCP and UDP</em> listening and established connections and the <em>program</em> names with addresses and ports in <em>numeric</em> format.
+<strong>Running Services</strong></p>
+<pre tabindex="0"><code>ps axf
+</code></pre><h2 id="windows-enumeration">Windows Enumeration<a hidden class="anchor" aria-hidden="true" href="#windows-enumeration">#</a></h2>
+<p><strong>Systeminfo</strong></p>
+<pre tabindex="0"><code>systeminfo
+</code></pre><p><strong>Installed Updates</strong></p>
+<pre tabindex="0"><code>wmic qfe get Caption,Description
+</code></pre><p><strong>Windows Services</strong></p>
+<pre tabindex="0"><code>net start
+</code></pre><p><strong>Users</strong></p>
+<pre tabindex="0"><code>whoami /priv
+whoami /groups
+net user
+net localgroup
+net localgroup administrators
+net accounts
+net accounts /domain
+</code></pre><p><strong>Networking</strong></p>
+<pre tabindex="0"><code>ipconfig /all
+netstat -abno
+arp -a
+</code></pre><p><strong>DNS</strong></p>
+<pre tabindex="0"><code>dig -t AXFR DOMAIN_NAME @DNS_SERVER
+</code></pre><p><strong>SMB</strong></p>
+<pre tabindex="0"><code>net share
+</code></pre><h2 id="other-tools">Other Tools<a hidden class="anchor" aria-hidden="true" href="#other-tools">#</a></h2>
+<blockquote>
+<p>List</p>
+</blockquote>
+<h3 id="sysinternals-suite">Sysinternals Suite<a hidden class="anchor" aria-hidden="true" href="#sysinternals-suite">#</a></h3>
+<p>The <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/">Sysinternals Suite</a> is a group of command-line and GUI utilities and tools that provides information about various aspects related to the Windows system. To give you an idea, we listed a few examples in the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Utility Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process Explorer</td>
+<td>Shows the processes along with the open files and registry keys</td>
+</tr>
+<tr>
+<td>Process Monitor</td>
+<td>Monitor the file system, processes, and Registry</td>
+</tr>
+<tr>
+<td>PsList</td>
+<td>Provides information about processes</td>
+</tr>
+<tr>
+<td>PsLoggedOn</td>
+<td>Shows the logged-in users</td>
+</tr>
+</tbody>
+</table>
+<p>Check <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/">Sysinternals Utilities Index</a> for a complete list of the utilities. If you want to learn more and experiment with these different utilities, we suggest the <a href="https://tryhackme.com/room/btsysinternalssg">Sysinternals</a> room.</p>
+<h3 id="process-hacker">Process Hacker<a hidden class="anchor" aria-hidden="true" href="#process-hacker">#</a></h3>
+<p>Another efficient and reliable MS Windows GUI tool that lets you gather information about running processes is <a href="https://processhacker.sourceforge.io/">Process Hacker</a>. Process Hacker gives you detailed information regarding running processes and related active network connections; moreover, it gives you deep insight into system resource utilization from CPU and memory to disk and network.</p>
+<h3 id="ghostpack-seatbelt">GhostPack Seatbelt<a hidden class="anchor" aria-hidden="true" href="#ghostpack-seatbelt">#</a></h3>
+<p><a href="https://github.com/GhostPack/Seatbelt">Seatbelt</a>, part of the GhostPack collection, is a tool written in C#. It is not officially released in binary form; therefore, you are expected to compile it yourself using MS Visual Studio.</p>
+<h2 id="summary">Summary<a hidden class="anchor" aria-hidden="true" href="#summary">#</a></h2>
+<h3 id="commands-and-cheatsheet">Commands and Cheatsheet<a hidden class="anchor" aria-hidden="true" href="#commands-and-cheatsheet">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Linux Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hostname</code></td>
+<td>shows the system’s hostname</td>
+</tr>
+<tr>
+<td><code>who</code></td>
+<td>shows who is logged in</td>
+</tr>
+<tr>
+<td><code>whoami</code></td>
+<td>shows the effective username</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>shows who is logged in and what they are doing</td>
+</tr>
+<tr>
+<td><code>last</code></td>
+<td>shows a listing of the last logged-in users</td>
+</tr>
+<tr>
+<td><code>ip address show</code></td>
+<td>shows the network interfaces and addresses</td>
+</tr>
+<tr>
+<td><code>arp</code></td>
+<td>shows the ARP cache</td>
+</tr>
+<tr>
+<td><code>netstat</code></td>
+<td>prints network connections</td>
+</tr>
+<tr>
+<td><code>ps</code></td>
+<td>shows a snapshot of the current processes</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Windows Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>systeminfo</code></td>
+<td>shows OS configuration information, including service pack levels</td>
+</tr>
+<tr>
+<td><code>whoami</code></td>
+<td>shows the user name and group information along with the respective security identifiers</td>
+</tr>
+<tr>
+<td><code>netstat</code></td>
+<td>shows protocol statistics and current TCP/IP network connections</td>
+</tr>
+<tr>
+<td><code>net user</code></td>
+<td>shows the user accounts on the computer</td>
+</tr>
+<tr>
+<td><code>net localgroup</code></td>
+<td>shows the local groups on the computer</td>
+</tr>
+<tr>
+<td><code>arp</code></td>
+<td>shows the IP-to-Physical address translation tables</td>
+</tr>
+</tbody>
+</table>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://d31ty.github.io/tags/thm/">THM</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://d31ty.github.io/">Lets Learn Together</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

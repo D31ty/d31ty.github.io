@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>THM on Lets Learn Together</title>
+    <link>https://d31ty.github.io/tags/thm/</link>
+    <description>Recent content in THM on Lets Learn Together</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://d31ty.github.io/tags/thm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TryHackMe - Enumeration Post Compromise</title>
+      <link>https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/</guid>
+      <description>Linux Enumeration OS Version Details
+ls /etc/*-release hostname Users and groups
+cat /etc/passwd cat /etc/group cat /etc/shadow Sensitive Info
+ls -lh /var/mail/ ls -lh /usr/bin/ ls -lh /sbin/ Installed Packages
+dpkg -l Current user info
+who whoami last id Network Details
+ip a s cat /etc/resolv.conf sudo netstat -plt netstat -atupn will show All TCP and UDP listening and established connections and the program names with addresses and ports in numeric format.</description>
+    </item>
+    
+    <item>
+      <title>TryHackMe - Lay of the Land - Post Compromise</title>
+      <link>https://d31ty.github.io/thm/learning-paths/red-teaming/the-lay-of-the-land-post-compromise/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/thm/learning-paths/red-teaming/the-lay-of-the-land-post-compromise/</guid>
+      <description>Internal Network: A Demilitarized Zone (DMZ) Network Enumeration netstat -na arp -a AD - Environment Components of AD List of Active Directory components that we need to be familiar with:
+Domain Controllers Organizational Units AD objects AD Domains Forest AD Service Accounts: Built-in local users, Domain users, Managed service accounts Domain Administrators Checking for AD systeminfo | findstr Domain Admin Groups BUILTIN\Administrator Local admin access on a domain controller Domain Admins Administrative access to all resources in the domain Enterprise Admins Available only in the forest root Schema Admins Capable of modifying domain/forest; useful for red teamers Server Operators Can manage domain servers Account Operators Can manage users that are not in privileged group AD Info Get-ADUser -Filter * Get-ADUser -Filter * -SearchBase &amp;#34;CN=Users,DC=THMREDTEAM,DC=COM&amp;#34; Host Security Solution - Info AntiVirus wmic /namespace:\\root\securitycenter2 path antivirusproduct $$ or $$</description>
+    </item>
+    
+    <item>
+      <title>TryHackMe - Windows Privilege Escalation</title>
+      <link>https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/</guid>
+      <description>THM-Windows Privilege Escalation Enumeration and Information Gathering Windows Pro - Uses Bitlocker encryption Find Account details using the command: lusrmgr.msc The SYSTEM account has more privileges than the Administrator user Powershell History: type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt Saved Windows Credentials: cmdkey /list runas /savecred /user:admin cmd.exe IIS Configuration type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString Retrieve Credentials Example Software: reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f &amp;#34;Proxy&amp;#34; /s Scheduled Tasks schtasks /query /tn vulntask /fo list /v File permissions of exe icacls c:\tasks\schtask.</description>
+    </item>
+    
+  </channel>
+</rss>

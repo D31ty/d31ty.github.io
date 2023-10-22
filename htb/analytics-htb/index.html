@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>HTB Analytics - 🐧 | Lets Learn Together</title>
+<meta name="keywords" content="HTB">
+<meta name="description" content="Analytics is a new easy linux machine released for Open Beta Season III Enumeration: Port Scan: sudo nmap -sC -sV -Pn -A 10.10.11.233 [sudo] password for d31ty: Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST Nmap scan report for 10.10.11.233 Host is up (0.38s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA) |_ 256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519) 80/tcp open http nginx 1.">
+<meta name="author" content="d31ty">
+<link rel="canonical" href="https://d31ty.github.io/htb/analytics-htb/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0648e40516ba181e370a81d24ab5a4b0683e67184fe1e7888524d0b7332ed31e.css" integrity="sha256-BkjkBRa6GB43CoHSSrWksGg&#43;ZxhP4eeIhSTQtzMu0x4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://d31ty.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://d31ty.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://d31ty.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://d31ty.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://d31ty.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="HTB Analytics - 🐧" />
+<meta property="og:description" content="Analytics is a new easy linux machine released for Open Beta Season III Enumeration: Port Scan: sudo nmap -sC -sV -Pn -A 10.10.11.233 [sudo] password for d31ty: Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST Nmap scan report for 10.10.11.233 Host is up (0.38s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA) |_ 256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519) 80/tcp open http nginx 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://d31ty.github.io/htb/analytics-htb/" /><meta property="article:section" content="HTB" />
+<meta property="article:published_time" content="2023-10-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-10-15T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HTB Analytics - 🐧"/>
+<meta name="twitter:description" content="Analytics is a new easy linux machine released for Open Beta Season III Enumeration: Port Scan: sudo nmap -sC -sV -Pn -A 10.10.11.233 [sudo] password for d31ty: Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST Nmap scan report for 10.10.11.233 Host is up (0.38s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA) |_ 256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519) 80/tcp open http nginx 1."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Hack The Box",
+      "item": "https://d31ty.github.io/htb/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "HTB Analytics - 🐧",
+      "item": "https://d31ty.github.io/htb/analytics-htb/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTB Analytics - 🐧",
+  "name": "HTB Analytics - 🐧",
+  "description": "Analytics is a new easy linux machine released for Open Beta Season III Enumeration: Port Scan: sudo nmap -sC -sV -Pn -A 10.10.11.233 [sudo] password for d31ty: Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST Nmap scan report for 10.10.11.233 Host is up (0.38s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA) |_ 256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519) 80/tcp open http nginx 1.",
+  "keywords": [
+    "HTB"
+  ],
+  "articleBody": "Analytics is a new easy linux machine released for Open Beta Season III Enumeration: Port Scan: sudo nmap -sC -sV -Pn -A 10.10.11.233 [sudo] password for d31ty: Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST Nmap scan report for 10.10.11.233 Host is up (0.38s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA) |_ 256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519) 80/tcp open http nginx 1.18.0 (Ubuntu) |_http-title: Did not follow redirect to http://analytical.htb/ |_http-server-header: nginx/1.18.0 (Ubuntu) No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ). TCP/IP fingerprint: OS:SCAN(V=7.94%E=4%D=10/13%OT=22%CT=1%CU=43150%PV=Y%DS=2%DC=T%G=Y%TM=6528F1 OS:C4%P=aarch64-unknown-linux-gnu)SEQ(SP=103%GCD=1%ISR=10B%TI=Z%CI=Z%II=I%T OS:S=A)SEQ(SP=103%GCD=2%ISR=10B%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M53AST11NW7%O2=M OS:53AST11NW7%O3=M53ANNT11NW7%O4=M53AST11NW7%O5=M53AST11NW7%O6=M53AST11)WIN OS:(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6=FE88)ECN(R=Y%DF=Y%T=40%W=FAF OS:0%O=M53ANNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3( OS:R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z OS:%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y OS:%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RI OS:PL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S) Network Distance: 2 hops Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel TRACEROUTE (using port 995/tcp) HOP RTT ADDRESS 1 339.70 ms 10.10.16.1 2 176.56 ms 10.10.11.233 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ . Nmap done: 1 IP address (1 host up) scanned in 45.61 seconds Directory Enumeration:\ngobuster dir -u \"http://analytical.htb/\" -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt =============================================================== Gobuster v3.6 by OJ Reeves (@TheColonial) \u0026 Christian Mehlmauer (@firefart) =============================================================== [+] Url: http://analytical.htb/ [+] Method: GET [+] Threads: 10 [+] Wordlist: /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt [+] Negative Status codes: 404 [+] User Agent: gobuster/3.6 [+] Timeout: 10s =============================================================== Starting gobuster in directory enumeration mode =============================================================== /images (Status: 301) [Size: 178] [--\u003e http://analytical.htb/images/] /css (Status: 301) [Size: 178] [--\u003e http://analytical.htb/css/] /js (Status: 301) [Size: 178] [--\u003e http://analytical.htb/js/] Sud-Domain Scan: ffuf -c -mc 200 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://analytical.htb/ -H 'Host: FUZZ.analytical.htb' /'___\\ /'___\\ /'___\\ /\\ \\__/ /\\ \\__/ __ __ /\\ \\__/ \\ \\ ,__\\\\ \\ ,__\\/\\ \\/\\ \\ \\ \\ ,__\\ \\ \\ \\_/ \\ \\ \\_/\\ \\ \\_\\ \\ \\ \\ \\_/ \\ \\_\\ \\ \\_\\ \\ \\____/ \\ \\_\\ \\/_/ \\/_/ \\/___/ \\/_/ v2.0.0-dev ________________________________________________ :: Method : GET :: URL : http://analytical.htb/ :: Wordlist : FUZZ: /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt :: Header : Host: FUZZ.analytical.htb :: Follow redirects : false :: Calibration : false :: Timeout : 10 :: Threads : 40 :: Matcher : Response status: 200 ________________________________________________ [Status: 200, Size: 77883, Words: 3574, Lines: 28, Duration: 204ms] * FUZZ: data :: Progress: [4989/4989] :: Job [1/1] :: 234 req/sec :: Duration: [0:00:22] :: Errors: 0 :: Got the login page at: http://data.analytical.htb/auth/login\nPage source Seems like this: \u003c!doctype html\u003e ",
+  "wordCount" : "784",
+  "inLanguage": "en",
+  "datePublished": "2023-10-15T00:00:00Z",
+  "dateModified": "2023-10-15T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "d31ty"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://d31ty.github.io/htb/analytics-htb/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lets Learn Together",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://d31ty.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://d31ty.github.io/" accesskey="h" title="Lets Learn Together (Alt + H)">Lets Learn Together</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://d31ty.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/htb/" title="Hack The Box">
+                    <span>HTB</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/portswigger/" title="PortSwigger">
+                    <span>PortSwigger</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://d31ty.github.io/thm/" title="Try Hack Me">
+                    <span>THM</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      HTB Analytics - 🐧
+    </h1>
+    <div class="post-meta"><span title='2023-10-15 00:00:00 +0000 UTC'>October 15, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;d31ty
+
+</div>
+  </header> 
+  <div class="post-content"><h4 id="analytics-is-a-new-easy-linux-machine-released-for-open-beta-season-iii">Analytics is a new easy linux machine released for Open Beta Season III<a hidden class="anchor" aria-hidden="true" href="#analytics-is-a-new-easy-linux-machine-released-for-open-beta-season-iii">#</a></h4>
+<h2 id="enumeration">Enumeration:<a hidden class="anchor" aria-hidden="true" href="#enumeration">#</a></h2>
+<h3 id="port-scan">Port Scan:<a hidden class="anchor" aria-hidden="true" href="#port-scan">#</a></h3>
+<pre tabindex="0"><code>sudo nmap -sC -sV -Pn -A 10.10.11.233
+[sudo] password for d31ty: 
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-13 12:58 IST
+Nmap scan report for 10.10.11.233
+Host is up (0.38s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 3e:ea:45:4b:c5:d1:6d:6f:e2:d4:d1:3b:0a:3d:a9:4f (ECDSA)
+|_  256 64:cc:75:de:4a:e6:a5:b4:73:eb:3f:1b:cf:b4:e3:94 (ED25519)
+80/tcp open  http    nginx 1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://analytical.htb/
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94%E=4%D=10/13%OT=22%CT=1%CU=43150%PV=Y%DS=2%DC=T%G=Y%TM=6528F1
+OS:C4%P=aarch64-unknown-linux-gnu)SEQ(SP=103%GCD=1%ISR=10B%TI=Z%CI=Z%II=I%T
+OS:S=A)SEQ(SP=103%GCD=2%ISR=10B%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M53AST11NW7%O2=M
+OS:53AST11NW7%O3=M53ANNT11NW7%O4=M53AST11NW7%O5=M53AST11NW7%O6=M53AST11)WIN
+OS:(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6=FE88)ECN(R=Y%DF=Y%T=40%W=FAF
+OS:0%O=M53ANNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(
+OS:R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z
+OS:%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y
+OS:%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RI
+OS:PL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 995/tcp)
+HOP RTT       ADDRESS
+1   339.70 ms 10.10.16.1
+2   176.56 ms 10.10.11.233
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 45.61 seconds    
+</code></pre><p>Directory Enumeration:</p>
+<pre tabindex="0"><code>gobuster dir -u &#34;http://analytical.htb/&#34; -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://analytical.htb/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/images               (Status: 301) [Size: 178] [--&gt; http://analytical.htb/images/]
+/css                  (Status: 301) [Size: 178] [--&gt; http://analytical.htb/css/]
+/js                   (Status: 301) [Size: 178] [--&gt; http://analytical.htb/js/]
+</code></pre><h3 id="sud-domain-scan">Sud-Domain Scan:<a hidden class="anchor" aria-hidden="true" href="#sud-domain-scan">#</a></h3>
+<pre tabindex="0"><code>ffuf -c -mc 200 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://analytical.htb/ -H &#39;Host: FUZZ.analytical.htb&#39;
+
+        /&#39;___\  /&#39;___\           /&#39;___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.0.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://analytical.htb/
+ :: Wordlist         : FUZZ: /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header           : Host: FUZZ.analytical.htb
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200
+________________________________________________
+
+[Status: 200, Size: 77883, Words: 3574, Lines: 28, Duration: 204ms]
+    * FUZZ: data
+
+:: Progress: [4989/4989] :: Job [1/1] :: 234 req/sec :: Duration: [0:00:22] :: Errors: 0 ::
+</code></pre><p>Got the login page at: <a href="http://data.analytical.htb/auth/login">http://data.analytical.htb/auth/login</a></p>
+<h3 id="page-source-seems-like-this">Page source Seems like this:<a hidden class="anchor" aria-hidden="true" href="#page-source-seems-like-this">#</a></h3>
+<pre tabindex="0"><code>&lt;!doctype html&gt;&lt;html lang=&#34;en&#34; translate=&#34;no&#34;&gt;&lt;head&gt;&lt;meta charset=&#34;utf-8&#34;/&gt;&lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;IE=edge&#34;/&gt;
+
+&lt;/script&gt;&lt;script&gt;(function() {
+  window.MetabaseBootstrap        = JSON.parse(document.getElementById(&#34;_metabaseBootstrap&#34;).textContent);
+  window.MetabaseUserLocalization = JSON.parse(document.getElementById(&#34;_metabaseUserLocalization&#34;).textContent);
+  window.MetabaseSiteLocalization = JSON.parse(document.getElementById(&#34;_metabaseSiteLocalization&#34;).textContent);
+
+  var configuredRoot = document.head.querySelector(&#34;meta[name=&#39;base-href&#39;]&#34;).content;
+  var actualRoot = &#34;/&#34;;
+
+  // Add trailing slashes
+  var backendPathname = document.head.querySelector(&#34;meta[name=&#39;uri&#39;]&#34;).content.replace(/\/*$/, &#34;/&#34;);
+  // e.x. &#34;/questions/&#34;
+  var frontendPathname = window.location.pathname.replace(/\/*$/, &#34;/&#34;);
+  // e.x. &#34;/metabase/questions/&#34;
+  if (backendPathname === frontendPathname.slice(-backendPathname.length)) {
+    // Remove the backend pathname from the end of the frontend pathname
+    actualRoot = frontendPathname.slice(0, -backendPathname.length) + &#34;/&#34;;
+    // e.x. &#34;/metabase/&#34;
+  }
+
+  if (actualRoot !== configuredRoot) {
+    console.warn(&#34;Warning: the Metabase site URL basename \&#34;&#34; + configuredRoot + &#34;\&#34; does not match the actual basename \&#34;&#34; + actualRoot + &#34;\&#34;.&#34;);
+    console.warn(&#34;You probably want to update the Site URL setting to \&#34;&#34; + window.location.origin + actualRoot + &#34;\&#34;&#34;);
+    document.getElementsByTagName(&#34;base&#34;)[0].href = actualRoot;
+  }
+
+  window.MetabaseRoot = actualRoot;
+})();
+</code></pre><p>With some google search guessed the vulnerability with <code>CVE-2023-38646 (2023-07-21)</code></p>
+<p>Notes about the vulnerability: <a href="https://infosecwriteups.com/cve-2023-38646-metabase-pre-auth-rce-866220684396">https://infosecwriteups.com/cve-2023-38646-metabase-pre-auth-rce-866220684396</a></p>
+<p>The key component for the vulnerability lies in <code>/api/setup/validate</code></p>
+<p>With couple of POC from - <a href="https://github.com/nomi-sec/PoC-in-GitHub">https://github.com/nomi-sec/PoC-in-GitHub</a></p>
+<p>I tried: <a href="https://github.com/securezeron/CVE-2023-38646">https://github.com/securezeron/CVE-2023-38646</a></p>
+<p><strong>Note:</strong> Sometimes in the Reverse Shell POC the bash command won&rsquo;t work, so try to use sh command in the POC to get the reverse shell</p>
+<p>We will access to the docker container. Initially I thought I got user, then after few minutes I realised like falling into a rabbit-hole, then a sudden thought of checking the <code>env</code>  made me come back to my senses.</p>
+<p>I found the username and password in the env.</p>
+<pre tabindex="0"><code>/usr $ env
+MB_LDAP_BIND_DN=
+LANGUAGE=en_US:en
+USER=metabase
+HOSTNAME=24c2782950ea
+FC_LANG=en-US
+SHLVL=4
+LD_LIBRARY_PATH=/opt/java/openjdk/lib/server:/opt/java/openjdk/lib:/opt/java/openjdk/../lib
+HOME=/home/metabase
+OLDPWD=/
+MB_EMAIL_SMTP_PASSWORD=
+LC_CTYPE=en_US.UTF-8
+JAVA_VERSION=jdk-11.0.19+7
+LOGNAME=metabase
+_=-l
+MB_DB_CONNECTION_URI=
+PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MB_DB_PASS=
+MB_JETTY_HOST=0.0.0.0
+META_PASS=An4lytics_ds20223#
+LANG=en_US.UTF-8
+MB_LDAP_PASSWORD=
+SHELL=/bin/sh
+MB_EMAIL_SMTP_USERNAME=
+MB_DB_USER=
+META_USER=metalytics
+LC_ALL=en_US.UTF-8
+JAVA_HOME=/opt/java/openjdk
+PWD=/usr
+MB_DB_FILE=//metabase.db/metabase.db
+</code></pre><p><code>META_USER=metalytics and META_PASS=An4lytics_ds20223#</code></p>
+<p>Went to <strong>ssh</strong> with username metalytics and password An4lytics_ds20223#</p>
+<p>Got the user flag: <code>ead761838a2283c85bbd9995ab5562e5</code></p>
+<p>I ran linpeas, pspy64 and found nothing interesting. Surfing around the hints in the forum I got a OS level local Priv.Esc</p>
+<p>So ran the command: <code>cat /etc/os-release</code>
+Searched for this recent vuln and thought of executing it&hellip;.</p>
+<p>Without any realisation I have fallen for the trap.</p>
+<p>The Rabbit hole Vuln I thought would be: <a href="https://www.exploit-db.com/exploits/51180">https://www.exploit-db.com/exploits/51180</a></p>
+<p>PS: IDK how it worked
+<img loading="lazy" src="/images/Analytics-HTB/analytics2.png" alt="HTB"  />
+</p>
+<p><img loading="lazy" src="/images/Analytics-HTB/analytics1.png" alt="HTB"  />
+</p>
+<p>So after a long time, got tired and used Cheat from a blog on how to priv.Esc</p>
+<p>Got root flag: <code>9db8ff50d04f69cab85645c59091d608</code></p>
+<p>But I don&rsquo;t know how this vuln worked on Ubuntu 22.04.3 which is meant to work on versions lesser than Ubuntu 20.04</p>
+<p>But the actual Vuln: <a href="https://www.exploit-db.com/docs/49916">https://www.exploit-db.com/docs/49916</a></p>
+<p>Used POC: <a href="https://github.com/cerodah/overlayFS-CVE-2021-3493">https://github.com/cerodah/overlayFS-CVE-2021-3493</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://d31ty.github.io/tags/htb/">HTB</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://d31ty.github.io/">Lets Learn Together</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

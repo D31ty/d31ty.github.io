@@ -2,17 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://d31ty.github.io/htb/analytics-htb/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/portswigger/server-based/authentication/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/thm/learning-paths/red-teaming/enumeration-post-compromise/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/htb/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://d31ty.github.io/</loc>
-    <lastmod>2023-10-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://d31ty.github.io/posts/</loc>
-    <lastmod>2023-10-04T00:00:00+00:00</lastmod>
+    <loc>https://d31ty.github.io/tags/htb/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://d31ty.github.io/posts/sample_post/</loc>
-    <lastmod>2023-10-04T00:00:00+00:00</lastmod>
+    <loc>https://d31ty.github.io/thm/learning-paths/red-teaming/the-lay-of-the-land-post-compromise/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://d31ty.github.io/categories/</loc>
+    <loc>https://d31ty.github.io/tags/portswigger/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/portswigger/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/portswigger/server-based/sqli/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/portswigger/server-based/ssrf/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://d31ty.github.io/tags/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/tags/thm/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/thm/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/thm/learning-paths/red-teaming/windows-privilege-escalation/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://d31ty.github.io/categories/</loc>
   </url>
 </urlset>
