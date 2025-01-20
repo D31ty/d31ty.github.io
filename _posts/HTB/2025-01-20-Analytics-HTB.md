@@ -1,5 +1,4 @@
 ---
-author: d31ty
 date: 2023-10-15
 linktitle: Analytics-HTB
 title: HTB Analytics - 🐧
@@ -204,9 +203,9 @@ Without any realisation I have fallen for the trap.
 The Rabbit hole Vuln I thought would be: https://www.exploit-db.com/exploits/51180
 
 PS: IDK how it worked
-![HTB](/images/Analytics-HTB/analytics2.png)
+![HTB](/assets/img/htb/analytics2.png)
 
-![HTB](/images/Analytics-HTB/analytics1.png)
+![HTB](/assets/img/htb/analytics1.png)
 
 So after a long time, got tired and used Cheat from a blog on how to priv.Esc
 
@@ -214,6 +213,6 @@ Got root flag: `9db8ff50d04f69cab85645c59091d608`
 
 But I don't know how this vuln worked on Ubuntu 22.04.3 which is meant to work on versions lesser than Ubuntu 20.04
 
-But the actual Vuln: https://www.exploit-db.com/docs/49916
+But the actual [Vulnerability Link](https://www.exploit-db.com/docs/49916)
 
-Used POC: https://github.com/cerodah/overlayFS-CVE-2021-3493
+Used POC: [Github Link](https://github.com/cerodah/overlayFS-CVE-2021-3493)

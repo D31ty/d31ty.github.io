@@ -41,8 +41,8 @@ social:
   # email: example@domain.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://github.com/B1CkC0p # change to your GitHub homepage
-    - https://twitter.com/D31ty # change to your Twitter homepage
+    - https://github.com/D31ty # change to your GitHub homepage
+    - https://twitter.com/B1CkC0p # change to your Twitter homepage
     - http://discordapp.com/users/1058058380729647145
     # Uncomment below to add more social links
     # - https://www.facebook.com/username

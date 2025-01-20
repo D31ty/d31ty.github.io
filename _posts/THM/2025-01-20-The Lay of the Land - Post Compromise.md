@@ -1,5 +1,4 @@
 ---
-author: d31ty
 date: 2023-10-15
 linktitle: layoftheland-thm
 title: TryHackMe - Lay of the Land - Post Compromise
@@ -8,9 +7,9 @@ tags: ['THM']
 categories: ['THM']
 ---
 ### Internal Network:
-![internal-net.png](/images/LayofLand-THM/internal-net.png)
+![internal-net.png](/assets/img/thm/internal-net.png)
 ### A Demilitarized Zone (DMZ)
-![DMZ.png](/images/LayofLand-THM/DMZ.png)
+![DMZ.png](/assets/img/thm/DMZ.png)
 #### Network Enumeration
 ```
 netstat -na
@@ -27,7 +26,7 @@ List of Active Directory components that we need to be familiar with:
 - Forest
 - AD Service Accounts: Built-in local users, Domain users, Managed service accounts
 - Domain Administrators
-![AD.png](/images/LayofLand-THM/AD.png)
+![AD.png](/assets/img/thm/AD.png)
 ##### Checking for AD
 ```
 systeminfo | findstr Domain
@@ -96,12 +95,17 @@ reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microso
 wmic product get name,version
 ```
 ##### Hidden Dir:
-`Get-ChildItem -Hidden -Path C:\Users\kkidd\Desktop\`
+```
+Get-ChildItem -Hidden -Path C:\Users\kkidd\Desktop\
+```
 ##### Processes:
-```
-net start
+ 
+     ``` 
+      net start
 
-wmic service where "name like 'THM Demo'" get Name,PathName
+      wmic service where "name like 'THM Demo'" get Name,PathName
 
-Get-Process -Name thm-demo
-```
+      Get-Process -Name thm-demo
+     ```
+
+

@@ -1,5 +1,4 @@
 ---
-author: d31ty
 date: 2023-10-15
 linktitle: authentication
 title: Postswigger Server Based Attacks - Authentication
@@ -23,5 +22,5 @@ Password: soccer
 ```
 #### Username and Password Brute force with 30mins to retry:
 ```
-
+Bruteforce successful. 
 ```

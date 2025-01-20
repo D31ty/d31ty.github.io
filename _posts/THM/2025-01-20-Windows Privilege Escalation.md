@@ -1,5 +1,4 @@
 ---
-author: d31ty
 date: 2023-10-15
 linktitle: windPV-thm
 title: TryHackMe - Windows Privilege Escalation
@@ -60,15 +59,21 @@ accesschk64.exe -qlc thmservice
 ```
 whoami /priv
 ```
+
 > **Tool:** https://github.com/gtworek/Priv2Admin
+
 > **Official Doc:** https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants
+
 ##### SeBackup and SeRestore
 > Awesome command exploitation tbh
 #### Abusing Vulnerable Software
+
 ```
 wmic product get name,version,vendor
 ```
->Exploit Code:
+
+> **Exploit Code:**
+
 ```
 $ErrorActionPreference = "Stop"
 
@@ -96,11 +101,12 @@ $s.Send($command)
 1. [WinPeas](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS)
 2. [PrivCheck](https://github.com/itm4n/PrivescCheck): 
 3. [WES-NG: Windows Exploit Suggester](https://github.com/bitsadmin/wesng)
+
 ### Resources:
-1. https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation
-2. https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf
-3. https://decoder.cloud/
-4. https://jlajara.gitlab.io/others/2020/11/22/Potatoes_Windows_Privesc.html
-5. https://github.com/antonioCoco/RogueWinRM
-6. https://github.com/gtworek/Priv2Admin
-7. https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md
+1. [Windows Local Priv-Esc](https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation)
+2. [Token Kidanapping](https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf)
+3. [Decoder](https://decoder.cloud/)
+4. [Potates Windows Priv](https://jlajara.gitlab.io/others/2020/11/22/Potatoes_Windows_Privesc.html)
+5. [RoguesWinRM](https://github.com/antonioCoco/RogueWinRM)
+6. [Priv2Admin](https://github.com/gtworek/Priv2Admin)
+7. [Payload of Things - Windows Privs](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md)

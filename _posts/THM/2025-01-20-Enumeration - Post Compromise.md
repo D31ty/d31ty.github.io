@@ -1,5 +1,4 @@
 ---
-author: d31ty
 date: 2023-10-15
 linktitle: enumeration-thm
 title: TryHackMe - Enumeration Post Compromise
