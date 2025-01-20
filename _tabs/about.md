@@ -9,5 +9,5 @@ order: 4
 
 
 #### Profile links:
-1. (TryHackMe)[https://tryhackme.com/r/p/cyberpunk.d31ty]
-2. (HackTheBox)[https://app.hackthebox.com/profile/1346386]
+1. [TryHackMe](https://tryhackme.com/r/p/cyberpunk.d31ty)
+2. [HackTheBox](https://app.hackthebox.com/profile/1346386)
