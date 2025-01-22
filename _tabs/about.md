@@ -11,3 +11,6 @@ order: 4
 #### Profile links:
 1. [TryHackMe](https://tryhackme.com/r/p/cyberpunk.d31ty)
 2. [HackTheBox](https://app.hackthebox.com/profile/1346386)
+
+> It is ok to do `Hippity hoppity your code is now my property`, if you understand the logic!
+{: .prompt-info }
