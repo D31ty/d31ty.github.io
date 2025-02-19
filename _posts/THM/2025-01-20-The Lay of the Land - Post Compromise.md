@@ -4,7 +4,7 @@ linktitle: layoftheland-thm
 title: TryHackMe - Lay of the Land - Post Compromise
 showreadingtime: true
 tags: ['THM']
-categories: ['THM']
+categories: ['THM','Learning']
 ---
 ### Internal Network:
 ![internal-net.png](/assets/img/thm/internal-net.png)

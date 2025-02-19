@@ -4,7 +4,7 @@ linktitle: windPV-thm
 title: TryHackMe - Windows Privilege Escalation
 showreadingtime: true
 tags: ['THM']
-categories: ['THM']
+categories: ['THM','Learning']
 ---
 
 ## [THM-Windows Privilege Escalation](https://tryhackme.com/room/windowsprivesc20)

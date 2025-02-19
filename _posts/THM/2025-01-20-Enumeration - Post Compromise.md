@@ -4,7 +4,7 @@ linktitle: enumeration-thm
 title: TryHackMe - Enumeration Post Compromise
 showreadingtime: true
 tags: ['THM']
-categories: ['THM']
+categories: ['THM','Learning']
 ---
 
 ## Linux Enumeration
