@@ -1,9 +1,9 @@
 ---
 date: 2025-02-07
 linktitle: web_sockets
-title: Postswigger Web Sockets
+title: Web Sockets Attacks
 showreadingtime: true
-tags: ['PortSwigger','Web_Sockets']
+tags: ['PortSwigger']
 categories: ['PortSwigger']
 ---
 

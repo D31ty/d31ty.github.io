@@ -1,9 +1,9 @@
 ---
 date: 2025-02-05
 linktitle: path_traversal
-title: Postswigger Path Traversal
+title: Path Traversal Attacks
 showreadingtime: true
-tags: ['PortSwigger', 'Path_Traversal']
+tags: ['PortSwigger']
 categories: ['PortSwigger']
 ---
 

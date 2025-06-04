@@ -1,7 +1,7 @@
 ---
 date: 2023-10-15
 linktitle: authentication
-title: Postswigger Server Based Attacks - Authentication
+title: Authentication Based Attacks
 showreadingtime: true
 tags: ['PortSwigger']
 categories: ['PortSwigger']
