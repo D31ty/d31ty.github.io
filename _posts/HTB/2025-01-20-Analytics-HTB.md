@@ -4,7 +4,7 @@ linktitle: Analytics-HTB
 title: HTB Analytics - 🐧
 showreadingtime: true
 tags: ['HTB']
-categories: ['HTB']
+categories: ['HTB', 'Linux']
 ---
 #### Analytics is a new easy linux machine released for Open Beta Season III
 

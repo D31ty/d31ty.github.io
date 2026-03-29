@@ -4,7 +4,7 @@ linktitle: authentication
 title: Authentication Based Attacks
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Server-side']
 ---
 
 # Brute Force

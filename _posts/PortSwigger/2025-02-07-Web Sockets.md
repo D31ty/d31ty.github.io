@@ -4,7 +4,7 @@ linktitle: web_sockets
 title: Web Sockets Attacks
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Server-side']
 ---
 
 # WebSockets

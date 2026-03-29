@@ -4,7 +4,7 @@ linktitle: path_traversal
 title: Path Traversal Attacks
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Server-side']
 ---
 
 # Path Traversal

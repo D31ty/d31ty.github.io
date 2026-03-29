@@ -4,7 +4,7 @@ linktitle: api-testing
 title: API Testing
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Server-side']
 ---
 
 ## Request Methods:

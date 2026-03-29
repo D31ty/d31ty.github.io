@@ -4,7 +4,7 @@ linktitle: template_engines_ssti
 title: Finding SSTI Template Engines in Web App
 showreadingtime: true
 tags: ["PortSwigger"]
-categories: ["PortSwigger"]
+categories: ["PortSwigger", "Server-side"]
 excerpt: >-
   Methods to identify server-side template engines before SSTI: differential responses,
   syntax polyglots, error fingerprinting, timing, second-order cases, and framework hints.

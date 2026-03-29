@@ -4,7 +4,7 @@ linktitle: request&response
 title: Understanding request and response
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Extras']
 ---
 
 ## ✅ **Security Headers (Response)**

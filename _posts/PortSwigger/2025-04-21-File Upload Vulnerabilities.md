@@ -4,7 +4,7 @@ linktitle: file_upload
 title: File Upload Vulnerabilities
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Server-side']
 ---
 
 ## How do web servers handle requests for static files?

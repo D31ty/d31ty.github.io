@@ -4,7 +4,7 @@ linktitle: Chemistry-HTB
 title: HTB Chemistry - 🐧
 showreadingtime: true
 tags: ['HTB']
-categories: ['HTB']
+categories: ['HTB', 'Linux']
 ---
 
 # Enumeration

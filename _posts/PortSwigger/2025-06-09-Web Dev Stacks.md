@@ -4,7 +4,7 @@ linktitle: web-dev
 title: Web Developement Stacks and Tools
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Extras']
 ---
 
 ## **1. 🎨 Frontend Tech Stack**

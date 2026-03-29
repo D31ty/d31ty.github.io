@@ -4,7 +4,7 @@ linktitle: xxe&csv
 title: XXE and CSV Injection Difference
 showreadingtime: true
 tags: ['PortSwigger']
-categories: ['PortSwigger']
+categories: ['PortSwigger', 'Extras']
 ---
 
 ### 🧨 **1. XXE (XML External Entity) Injection**
