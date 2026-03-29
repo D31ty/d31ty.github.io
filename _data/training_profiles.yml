@@ -1,11 +1,12 @@
 # Platform widgets on the About tab
-# TryHackMe live badge: public profile → Share / embed → copy userPublicId from the iframe URL
-# (…/api/v2/badges/public-profile?userPublicId=YOUR_ID)
 tryhackme:
+  # Your TryHackMe handle (shown on the About card)
   username: "cyberpunk.d31ty"
   profile_url: "https://tryhackme.com/r/p/cyberpunk.d31ty"
+  # Optional: numeric userPublicId from TryHackMe’s badge embed URL — required for
+  # the live stats iframe (the public API does not accept the text username).
   # user_public_id: "123456"
-  # Optional manual stats (omit lines you do not need):
+  # Optional manual stats if you skip the iframe:
   # rank: "0x8"
   # points: "12345"
   # streak: "7 days"

@@ -1,5 +1,6 @@
 {% assign thm = site.data.training_profiles.tryhackme %}
 {% assign htb = site.data.training_profiles.hackthebox %}
+{% assign thm_handle = thm.username | default: '' | strip %}
 {% assign thm_uid = thm.user_public_id | default: '' | strip %}
 {% assign thm_rank = thm.rank | default: '' | strip %}
 {% assign thm_points = thm.points | default: '' | strip %}
@@ -145,6 +146,54 @@
     width: 100%;
     height: auto;
   }
+  .platform-widget[data-brand='htb'] .platform-badge-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.65rem 0.5rem;
+  }
+  .platform-widget[data-brand='htb'] .platform-badge-frame > a {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    line-height: 0;
+  }
+  .platform-widget[data-brand='htb'] .platform-badge-frame img {
+    width: auto !important;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .thm-handle {
+    margin: 0 0 0.35rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  .thm-sub {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    color: rgba(148, 163, 184, 0.9);
+  }
+  .thm-shield-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.25rem;
+  }
+  .thm-shield-wrap a {
+    line-height: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  .thm-shield-wrap img {
+    display: block;
+    height: 28px;
+    width: auto;
+  }
   .platform-widget-note {
     margin: 0;
     font-size: 0.8rem;
@@ -164,10 +213,15 @@
         <a class="platform-widget-link" href="{{ thm.profile_url | escape }}" rel="noopener noreferrer" target="_blank">Open profile</a>
       </div>
 
+      {% if thm_handle.size > 0 %}
+        <p class="thm-handle">{{ thm_handle | escape }}</p>
+        <p class="thm-sub">TryHackMe handle (public profile)</p>
+      {% endif %}
+
       {% if thm_uid.size > 0 %}
         <div class="platform-badge-frame">
           <iframe
-            title="TryHackMe public badge — {{ thm.username | escape }}"
+            title="TryHackMe public badge — {{ thm_handle | default: thm.username | escape }}"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId={{ thm_uid | escape }}"
@@ -201,9 +255,19 @@
           {% endif %}
         </dl>
       {% else %}
+        <div class="thm-shield-wrap">
+          <img
+            src="https://img.shields.io/static/v1?label=TryHackMe&amp;message={{ thm_handle | uri_escape }}&amp;color=22c55e&amp;style=for-the-badge"
+            alt="TryHackMe profile: {{ thm_handle | escape }}"
+            width="240"
+            height="28"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
         <p class="platform-widget-note">
-          Live badge: add your numeric <code>user_public_id</code> from the TryHackMe badge embed URL to
-          <code>_data/training_profiles.yml</code>, or fill rank / streak / last activity there for static text.
+          For a live rank / streak badge in this box, add your numeric <code>user_public_id</code> from the
+          TryHackMe badge embed (the API only accepts that ID, not your text username).
         </p>
       {% endif %}
     </div>
@@ -221,8 +285,6 @@
       <div class="platform-badge-frame">
         <img
           src="{{ htb.badge_image_url | escape }}"
-          width="600"
-          height="150"
           alt="Hack The Box profile stats — rank, progress, and streak (updates from HTB)"
           loading="lazy"
           decoding="async"
