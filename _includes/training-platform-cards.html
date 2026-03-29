@@ -1,0 +1,233 @@
+{% assign thm = site.data.training_profiles.tryhackme %}
+{% assign htb = site.data.training_profiles.hackthebox %}
+{% assign thm_uid = thm.user_public_id | default: '' | strip %}
+{% assign thm_rank = thm.rank | default: '' | strip %}
+{% assign thm_points = thm.points | default: '' | strip %}
+{% assign thm_streak = thm.streak | default: '' | strip %}
+{% assign thm_last = thm.last_activity | default: '' | strip %}
+{% assign thm_has_stats = false %}
+{% if thm_rank.size > 0 or thm_points.size > 0 or thm_streak.size > 0 or thm_last.size > 0 %}
+  {% assign thm_has_stats = true %}
+{% endif %}
+
+<style>
+  .training-platform-wrap {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    margin: 1.5rem 0 2rem;
+  }
+  .platform-widget {
+    --pw-border: rgba(148, 163, 184, 0.28);
+    --pw-bg: linear-gradient(
+      155deg,
+      rgba(30, 41, 59, 0.55) 0%,
+      rgba(15, 23, 42, 0.92) 100%
+    );
+    border-radius: 1.5rem;
+    padding: 1.15rem 1.35rem 1.25rem;
+    background: var(--pw-bg);
+    border: 1px solid var(--pw-border);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 12px 40px rgba(0, 0, 0, 0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .platform-widget[data-brand='thm'] {
+    --accent: #22c55e;
+    --accent-dim: rgba(34, 197, 94, 0.18);
+  }
+  .platform-widget[data-brand='htb'] {
+    --accent: #9fef00;
+    --accent-dim: rgba(159, 239, 0, 0.14);
+  }
+  .platform-widget::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      120% 80% at 0% 0%,
+      var(--accent-dim),
+      transparent 55%
+    );
+  }
+  .platform-widget-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .platform-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .platform-widget-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .platform-widget-title .dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    flex-shrink: 0;
+  }
+  .platform-widget-title span:last-child {
+    opacity: 0.92;
+  }
+  .platform-widget-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    background: rgba(15, 23, 42, 0.35);
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease;
+  }
+  .platform-widget-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .platform-stats {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+    font-size: 0.88rem;
+  }
+  .platform-stats dt {
+    margin: 0;
+    color: rgba(148, 163, 184, 0.95);
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .platform-stats dd {
+    margin: 0.1rem 0 0;
+    font-weight: 600;
+  }
+  .platform-badge-frame {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    line-height: 0;
+  }
+  .platform-badge-frame iframe {
+    display: block;
+    width: 100%;
+    min-height: 88px;
+    border: 0;
+    background: transparent;
+  }
+  .platform-badge-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .platform-widget-note {
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(148, 163, 184, 0.88);
+    line-height: 1.45;
+  }
+</style>
+
+<div class="training-platform-wrap">
+  <div class="platform-widget" data-brand="thm" aria-label="TryHackMe profile">
+    <div class="platform-widget-inner">
+      <div class="platform-widget-header">
+        <h3 class="platform-widget-title">
+          <span class="dot" aria-hidden="true"></span>
+          <span>TryHackMe</span>
+        </h3>
+        <a class="platform-widget-link" href="{{ thm.profile_url | escape }}" rel="noopener noreferrer" target="_blank">Open profile</a>
+      </div>
+
+      {% if thm_uid.size > 0 %}
+        <div class="platform-badge-frame">
+          <iframe
+            title="TryHackMe public badge — {{ thm.username | escape }}"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId={{ thm_uid | escape }}"
+          ></iframe>
+        </div>
+      {% elsif thm_has_stats %}
+        <dl class="platform-stats">
+          {% if thm_rank.size > 0 %}
+            <div>
+              <dt>Rank</dt>
+              <dd>{{ thm_rank | escape }}</dd>
+            </div>
+          {% endif %}
+          {% if thm_points.size > 0 %}
+            <div>
+              <dt>Points</dt>
+              <dd>{{ thm_points | escape }}</dd>
+            </div>
+          {% endif %}
+          {% if thm_streak.size > 0 %}
+            <div>
+              <dt>Streak</dt>
+              <dd>{{ thm_streak | escape }}</dd>
+            </div>
+          {% endif %}
+          {% if thm_last.size > 0 %}
+            <div style="grid-column: 1 / -1">
+              <dt>Last activity</dt>
+              <dd>{{ thm_last | escape }}</dd>
+            </div>
+          {% endif %}
+        </dl>
+      {% else %}
+        <p class="platform-widget-note">
+          Live badge: add your numeric <code>user_public_id</code> from the TryHackMe badge embed URL to
+          <code>_data/training_profiles.yml</code>, or fill rank / streak / last activity there for static text.
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="platform-widget" data-brand="htb" aria-label="Hack The Box profile">
+    <div class="platform-widget-inner">
+      <div class="platform-widget-header">
+        <h3 class="platform-widget-title">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Hack The Box</span>
+        </h3>
+        <a class="platform-widget-link" href="{{ htb.profile_url | escape }}" rel="noopener noreferrer" target="_blank">Open profile</a>
+      </div>
+      <div class="platform-badge-frame">
+        <img
+          src="{{ htb.badge_image_url | escape }}"
+          width="600"
+          height="150"
+          alt="Hack The Box profile stats — rank, progress, and streak (updates from HTB)"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</div>

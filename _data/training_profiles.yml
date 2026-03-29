@@ -1,0 +1,17 @@
+# Platform widgets on the About tab
+# TryHackMe live badge: public profile → Share / embed → copy userPublicId from the iframe URL
+# (…/api/v2/badges/public-profile?userPublicId=YOUR_ID)
+tryhackme:
+  username: "cyberpunk.d31ty"
+  profile_url: "https://tryhackme.com/r/p/cyberpunk.d31ty"
+  # user_public_id: "123456"
+  # Optional manual stats (omit lines you do not need):
+  # rank: "0x8"
+  # points: "12345"
+  # streak: "7 days"
+  # last_activity: "Mar 2026"
+
+hackthebox:
+  profile_id: "1346386"
+  profile_url: "https://app.hackthebox.com/profile/1346386"
+  badge_image_url: "https://www.hackthebox.com/badge/image/1346386"
