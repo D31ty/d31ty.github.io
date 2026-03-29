@@ -7,6 +7,8 @@ tags: ["PortSwigger"]
 categories: ["PortSwigger"]
 ---
 
+{% raw %}
+
 # Techniques to Identify Template Engines (Pre-SSTI Phase)
 
 Identifying whether a web application uses a server-side template engine is a critical precursor to SSTI testing. In modern architectures—especially hybrid SSR + CSR apps—this is no longer obvious. Below are advanced methodologies used in professional security testing.
@@ -276,3 +278,5 @@ Map frameworks to likely engines:
 1. https://portswigger.net/web-security/server-side-template-injection  
 2. https://github.com/epinna/tplmap  
 3. https://github.com/vladko312/SSTImap  
+
+{% endraw %}
